@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise_token_auth' # Token based authentication for Rails JSON APIs.
 
+gem 'seedbank' # Better DB seeding. https://github.com/james2m/seedbank
+
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails' # RSpec for Rails-3+ http://relishapp.com/rspec/rspec-rails
