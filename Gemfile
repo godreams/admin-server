@@ -24,8 +24,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
-gem 'devise_token_auth' # Token based authentication for Rails JSON APIs.
-
 gem 'seedbank' # Better DB seeding. https://github.com/james2m/seedbank
 
 group :development, :test do
