@@ -4,4 +4,6 @@ class Volunteer < ApplicationRecord
   has_one :fellow, through: :coach
   has_one :national_finance_head, through: :coach
   has_many :donations
+
+  validates_presence_of :user, :coach
 end

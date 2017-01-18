@@ -3,4 +3,6 @@ class NationalFinanceHead < ApplicationRecord
   has_many :fellows
   has_many :coaches, through: :fellows
   has_many :volunteers, through: :fellows
+
+  validates_presence_of :user
 end
