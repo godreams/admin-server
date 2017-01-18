@@ -27,6 +27,8 @@ gem 'bcrypt', '~> 3.1.7'
 # # Better DB seeding. https://github.com/james2m/seedbank
 gem 'seedbank'
 
+gem 'faker'
+
 # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard. http://jwt.github.io/ruby-jwt/
 gem 'jwt'
 
