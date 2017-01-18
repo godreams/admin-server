@@ -28,5 +28,13 @@ module AdminServer
     config.api_only = true
 
     config.autoload_paths << Rails.root.join('app/services')
+
+    # TODO: Extremely permissive CORS settings. These should be restricted to GoDreams (and development) sources.
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
   end
 end
