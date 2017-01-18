@@ -17,4 +17,24 @@ class ApplicationController < ActionController::API
       description: 'Please authenticate and acquire JWT before attempting to access restricted routes. JWT should be passed in the Authorization header.'
     }] }, status: 401 unless @current_user
   end
+
+  def current_volunteer
+    current_user&.volunteer
+  end
+
+  def current_coach
+    current_user&.coach
+  end
+
+  def current_fellow
+    current_user&.fellow
+  end
+
+  def current_national_finance_head
+    current_user&.national_finance_head
+  end
+
+  def current_user_role
+    current_national_finance_head || current_fellow || current_coach || current_volunteer
+  end
 end
