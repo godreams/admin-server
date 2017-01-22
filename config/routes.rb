@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root to: 'application#hello'
 
   resources :donations
+  resource :user, only: %w(show)
 end
