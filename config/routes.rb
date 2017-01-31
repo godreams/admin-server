@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   root to: 'application#hello'
 
-  resources :donations
+  resources :donations do
+    member do
+      post 'approve'
+    end
+  end
+
   resource :user, only: %w(show)
 end
