@@ -11,6 +11,8 @@ module Donations
       sync
       model.volunteer = volunteer
       model.save!
+
+      Donations::AcknowledgementJob.perform_later(model.reload)
     end
   end
 end

@@ -38,5 +38,8 @@ module AdminServer
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
+
+    # Use sidekiq to process jobs.
+    config.active_job.queue_adapter = :sidekiq
   end
 end
