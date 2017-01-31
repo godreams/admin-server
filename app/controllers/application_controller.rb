@@ -3,8 +3,16 @@ class ApplicationController < ActionController::API
 
   attr_reader :current_user
 
+  rescue_from BaseException, with: :show_exception
+
   def hello
     render json: { hello: :world }
+  end
+
+  protected
+
+  def show_exception(exception)
+    render json: exception.response, status: exception.status
   end
 
   private

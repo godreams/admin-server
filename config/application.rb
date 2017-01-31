@@ -27,7 +27,9 @@ module AdminServer
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.autoload_paths << Rails.root.join('app/services')
+    %w(services exceptions).each do |folder|
+      config.autoload_paths << Rails.root.join("app/#{folder}")
+    end
 
     # TODO: Extremely permissive CORS settings. These should be restricted to GoDreams (and development) sources.
     config.middleware.insert_before 0, Rack::Cors do
