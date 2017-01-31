@@ -1,4 +1,4 @@
-class BaseException < StandardError
+class ApplicationException < StandardError
   def response
     { code: @code, message: @message, description: @description }
   end

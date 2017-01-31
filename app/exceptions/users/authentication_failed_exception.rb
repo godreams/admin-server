@@ -1,5 +1,5 @@
 module Users
-  class AuthenticationFailedException < BaseException
+  class AuthenticationFailedException < ApplicationException
     def initialize
       @code = :authentication_failed
       @message = 'Could not validate authorization'

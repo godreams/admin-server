@@ -1,5 +1,5 @@
 module Donations
-  class ValidationFailureException < BaseException
+  class ValidationFailureException < ApplicationException
     def initialize(form)
       @code = :validation_failure
       @message = 'Validation of params failed'

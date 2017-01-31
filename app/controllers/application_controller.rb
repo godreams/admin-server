@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
   helper_method :current_user
 
-  rescue_from BaseException, with: :show_exception
+  rescue_from ApplicationException, with: :show_exception
 
   def hello
     render json: { hello: :world }
