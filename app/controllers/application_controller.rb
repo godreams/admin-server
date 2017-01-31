@@ -22,11 +22,7 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    render json: { errors: [{
-      code: :not_authorized,
-      message: 'Could not validate authorization',
-      description: 'Please authenticate and acquire JWT before attempting to access restricted routes. JWT should be passed in the Authorization header.'
-    }] }, status: 401 unless current_user.present?
+    raise Users::AuthenticationFailedException if current_user.blank?
   end
 
   def current_volunteer
