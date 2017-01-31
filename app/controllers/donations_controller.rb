@@ -10,5 +10,14 @@ class DonationsController < ApplicationController
   # POST /donations
   def create
     raise Donations::VolunteerRequiredException if current_volunteer.blank?
+
+    form = Donations::CreateForm.new(Donation.new)
+
+    if form.validate(params)
+      form.save!(current_volunteer)
+      render json: { success: true }
+    else
+      raise Donations::ValidationFailureException.new(form)
+    end
   end
 end
