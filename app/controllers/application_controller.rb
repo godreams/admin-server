@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   before_action :authenticate_request
 
-  attr_reader :current_user
+  helper_method :current_user
 
   rescue_from BaseException, with: :show_exception
 
@@ -15,15 +15,18 @@ class ApplicationController < ActionController::API
     render json: exception.response, status: exception.status
   end
 
+  def current_user
+    @current_user ||= Users::AuthorizationService.new(request.headers).user
+  end
+
   private
 
   def authenticate_request
-    @current_user = Users::AuthorizationService.new(request.headers).user
     render json: { errors: [{
       code: :not_authorized,
       message: 'Could not validate authorization',
       description: 'Please authenticate and acquire JWT before attempting to access restricted routes. JWT should be passed in the Authorization header.'
-    }] }, status: 401 unless @current_user
+    }] }, status: 401 unless current_user.present?
   end
 
   def current_volunteer
