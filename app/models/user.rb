@@ -7,4 +7,8 @@ class User < ApplicationRecord
   has_one :national_finance_head
 
   validates_presence_of :name, :email, :phone
+
+  def approvals
+    fellow.approvals.or(national_finance_head.approvals)
+  end
 end

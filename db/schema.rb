@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131085531) do
+ActiveRecord::Schema.define(version: 20170201092407) do
+
+  create_table "approvals", force: :cascade do |t|
+    t.integer  "donation_id"
+    t.string   "approver_type"
+    t.integer  "approver_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["approver_type", "approver_id"], name: "index_approvals_on_approver_type_and_approver_id"
+    t.index ["donation_id"], name: "index_approvals_on_donation_id"
+  end
 
   create_table "coaches", force: :cascade do |t|
     t.integer  "user_id"
