@@ -32,11 +32,8 @@ class DonationsController < ApplicationController
   # POST /donations/:id/approve
   def approve
     approver = current_national_finance_head || current_fellow
-    raise Donations::ApproverRequiredException if approver.blank?
-
     donation = Donation.find(params[:id])
     Donations::ApprovalService.new(donation).approve(approver)
-
     render json: { success: true, donation: donation.reload }
   end
 end
