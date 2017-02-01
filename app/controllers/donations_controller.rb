@@ -21,6 +21,14 @@ class DonationsController < ApplicationController
     end
   end
 
+  # PATCH /donations/:id
+  def update
+    updater = current_national_finance_head || current_fellow || current_coach
+    donation = Donation.find(params[:id])
+    Donations::UpdateService.new(donation).update(updater, params)
+    render json: { success: true, donation: donation.reload }
+  end
+
   # POST /donations/:id/approve
   def approve
     approver = current_national_finance_head || current_fellow
