@@ -29,6 +29,14 @@ class DonationsController < ApplicationController
     render json: { success: true, donation: donation.reload }
   end
 
+  # DELETE /donations/:id
+  def destroy
+    destroyer = current_national_finance_head || current_fellow
+    donation = Donation.find(params[:id])
+    Donations::DestroyService.new(donation).destroy(destroyer)
+    render json: { success: true, donation: donation }
+  end
+
   # POST /donations/:id/approve
   def approve
     approver = current_national_finance_head || current_fellow
