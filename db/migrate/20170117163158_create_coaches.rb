@@ -1,11 +1,10 @@
 class CreateCoaches < ActiveRecord::Migration[5.0]
   def change
     create_table :coaches do |t|
-      t.integer :user_id
-      t.integer :fellow_id
+      t.references :user, foreign_key: true
+      t.references :fellow, foreign_key: true
 
       t.timestamps
     end
-    add_index :coaches, :fellow_id
   end
 end

@@ -5,8 +5,9 @@ class CreateDonations < ActiveRecord::Migration[5.0]
       t.string :email
       t.string :phone
       t.integer :amount
-      t.string :pan_number
+      t.string :pan
       t.text :address
+      t.references :volunteer, foreign_key: true
 
       t.timestamps
     end

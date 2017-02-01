@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fellow_id"], name: "index_coaches_on_fellow_id"
+    t.index ["user_id"], name: "index_coaches_on_user_id"
   end
 
   create_table "donations", force: :cascade do |t|
@@ -37,9 +38,9 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.integer  "amount"
     t.string   "pan"
     t.text     "address"
+    t.integer  "volunteer_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "volunteer_id"
     t.index ["volunteer_id"], name: "index_donations_on_volunteer_id"
   end
 
@@ -49,21 +50,23 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["national_finance_head_id"], name: "index_fellows_on_national_finance_head_id"
+    t.index ["user_id"], name: "index_fellows_on_user_id"
   end
 
   create_table "national_finance_heads", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_national_finance_heads_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
+    t.string   "phone"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "phone"
   end
 
   create_table "volunteers", force: :cascade do |t|
@@ -72,6 +75,7 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["coach_id"], name: "index_volunteers_on_coach_id"
+    t.index ["user_id"], name: "index_volunteers_on_user_id"
   end
 
 end
