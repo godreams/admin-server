@@ -1,24 +1,18 @@
-# README
+# Guardians of Dreams Admin Interface
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the API for [godreams/admin-client](https://github.com/godreams/admin-client).
 
-Things you may want to cover:
+## Development Setup
 
-* Ruby version
+1. Install [rvm](https://rvm.io)
+2. Install Ruby 2.3.3: `rvm install 2.3.3`
+3. Install [bundler](https://bundler.io): `gem install bundler`
+4. Install dependencies: `bundle install`
 
-* System dependencies
+## Execution
 
-* Configuration
+```
+bundle exec rails server
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Now visit: http://localhost:3000
