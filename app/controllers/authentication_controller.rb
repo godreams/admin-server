@@ -3,10 +3,10 @@ class AuthenticationController < ApplicationController
 
   # GET /authenticate
   def authenticate
-    token = Users::TokenService.new(params[:email], params[:password]).jwt
+    token, name, role = Users::AuthenticationService.new(params[:email], params[:password]).auth_info
 
     raise Users::SignInFailedException if token.blank?
 
-    render json: { auth_token: token }
+    render json: { auth_token: token, name: name, role: role }
   end
 end

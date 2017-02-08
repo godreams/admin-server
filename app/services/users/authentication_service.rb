@@ -1,15 +1,23 @@
 module Users
-  class TokenService
+  class AuthenticationService
     def initialize(email, password)
       @email = email
       @password = password
     end
 
+    def auth_info
+      [jwt, user&.name, user_role]
+    end
+
+    private
+
     def jwt
       JsonWebTokenService.encode(user_id: user.id) if user
     end
 
-    private
+    def user_role
+      (user.national_finance_head || user.fellow || user.coach || user.volunteer).class.name
+    end
 
     def user
       @user ||= begin
