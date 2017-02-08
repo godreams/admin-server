@@ -7,4 +7,8 @@ class Donation < ApplicationRecord
   def approved?
     approvals.present?
   end
+
+  def status_string
+    Donations::StatusService.new(self).status_string
+  end
 end
