@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  get 'authenticate', to: 'authentication#authenticate'
+  scope '/api' do
+    get 'authenticate', to: 'authentication#authenticate'
 
-  resources :donations do
-    member do
-      post 'approve'
+    resources :donations do
+      member do
+        post 'approve'
+      end
     end
-  end
 
-  resource :user, only: %w(show)
+    resource :user, only: %w(show)
+  end
 
   match '*path', to: 'client#index', via: :all
 end

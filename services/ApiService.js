@@ -3,7 +3,7 @@ import 'whatwg-fetch'
 export default class ApiService {
   constructor (token) {
     this.token = token
-    this.baseUrl = 'http://localhost:3001'
+    this.baseUrl = 'http://localhost:3000/api'
   }
 
   headers () {
