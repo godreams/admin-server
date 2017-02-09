@@ -12,6 +12,7 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
+*.log
 /log/*
 /tmp/*
 !/log/.keep
@@ -27,3 +28,9 @@
 
 # Ignore all .env files.
 .env*
+
+# Ignore bundle.js.
+public/bundle.js
+
+# Ignore locally installed modules.
+node_modules/

@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   get 'authenticate', to: 'authentication#authenticate'
 
-  root to: 'application#hello'
-
   resources :donations do
     member do
       post 'approve'
@@ -10,4 +8,6 @@ Rails.application.routes.draw do
   end
 
   resource :user, only: %w(show)
+
+  match '*path', to: 'client#index', via: :all
 end

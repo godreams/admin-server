@@ -5,10 +5,6 @@ class ApplicationController < ActionController::API
 
   rescue_from ApplicationException, with: :show_exception
 
-  def hello
-    render json: { hello: :world }
-  end
-
   protected
 
   def show_exception(exception)
