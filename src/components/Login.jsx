@@ -4,7 +4,6 @@ import LoginForm from 'grommet/components/LoginForm'
 import Box from 'grommet/components/Box'
 import 'grommet/scss/vanilla/index'
 import LoginService from 'services/LoginService'
-import Devtools from 'mobx-react-devtools'
 import {observable} from 'mobx';
 import {observer, inject} from 'mobx-react';
 import AppStateService from 'services/AppStateService'
@@ -53,7 +52,6 @@ class Login extends React.Component {
   render () {
     return (
       <App centered={false}>
-        <Devtools />
         <Box align='center'>
           <LoginForm onSubmit={this.attemptLogin} title='GoDreams' secondaryText='Administration Interface'
             errors={ this.errors() } rememberMe />

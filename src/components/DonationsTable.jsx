@@ -4,7 +4,6 @@ import {observable} from 'mobx'
 import Table from 'grommet/components/Table'
 import TableHeader from 'grommet/components/TableHeader'
 import TableRow from 'grommet/components/TableRow'
-import Devtools from 'mobx-react-devtools'
 import ApiService from 'services/ApiService'
 
 @inject('appState') @observer
@@ -49,7 +48,6 @@ import ApiService from 'services/ApiService'
   render () {
     return (
       <div>
-        <Devtools />
         <Table scrollable={true} selectable={true}>
           <TableHeader labels={['Donor', 'Amount', 'Date', 'Status']}/>
             <tbody>
