@@ -34,7 +34,8 @@
     "test": "standard",
     "dev": "webpack-dev-server --port 3000 --content-base public/",
     "build": "webpack -p",
-    "start": "webpack-dev-server --progress --profile --colors"
+    "start": "webpack-dev-server --progress --profile --colors",
+    "heroku-postbuild": "yarn run build"
   },
   "author": "Hari Gopal <mail@harigopal.in>",
   "license": "ISC",
