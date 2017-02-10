@@ -1,11 +1,11 @@
 var path = require('path')
 
 var BUILD_DIR = path.resolve(__dirname, 'public')
-var APP_DIR = path.resolve(__dirname, 'components')
+var APP_DIR = path.resolve(__dirname, 'src')
 var SERVICES_DIR = path.resolve(__dirname, 'services')
 
 var config = {
-  entry: APP_DIR + '/index.jsx',
+  entry: APP_DIR + '/components/index.jsx',
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js'
@@ -14,7 +14,7 @@ var config = {
     historyApiFallback: true
   },
   resolve: {
-    modules: [APP_DIR, SERVICES_DIR, 'node_modules'],
+    modules: [APP_DIR, 'node_modules'],
     extensions: ['.js', '.scss', '.css', '.jsx']
   },
   module: {

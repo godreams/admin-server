@@ -3,11 +3,11 @@ import App from 'grommet/components/App'
 import LoginForm from 'grommet/components/LoginForm'
 import Box from 'grommet/components/Box'
 import 'grommet/scss/vanilla/index'
-import LoginService from 'LoginService'
+import LoginService from 'services/LoginService'
 import Devtools from 'mobx-react-devtools'
 import {observable} from 'mobx';
 import {observer, inject} from 'mobx-react';
-import AppStateService from 'AppStateService'
+import AppStateService from 'services/AppStateService'
 
 @inject('appState') @observer
 class Login extends React.Component {

@@ -5,7 +5,7 @@ import Table from 'grommet/components/Table'
 import TableHeader from 'grommet/components/TableHeader'
 import TableRow from 'grommet/components/TableRow'
 import Devtools from 'mobx-react-devtools'
-import ApiService from 'ApiService'
+import ApiService from 'services/ApiService'
 
 @inject('appState') @observer
 @observer export default class DonationsTable extends React.Component {

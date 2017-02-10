@@ -10,7 +10,7 @@ import TextInput from 'grommet/components/TextInput'
 import NumberInput from 'grommet/components/NumberInput'
 import Footer from 'grommet/components/Footer'
 import Button from 'grommet/components/Button'
-import ApiService from 'ApiService'
+import ApiService from 'services/ApiService'
 
 @inject('appState') @observer
 export default class DonationForm extends React.Component {

@@ -1,8 +1,8 @@
 import React from 'react'
 import {Router, Route, browserHistory} from 'react-router'
 
-import Dashboard from 'Dashboard'
-import Login from 'Login'
+import Dashboard from 'components/Dashboard'
+import Login from 'components/Login'
 
 export default class Routes extends React.Component {
   render () {

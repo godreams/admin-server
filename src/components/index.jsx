@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Routes from 'Routes'
+import Routes from 'components/Routes'
 import {observable} from 'mobx'
 import {Provider} from 'mobx-react'
 
