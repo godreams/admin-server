@@ -2,6 +2,10 @@
   "name": "godreams-admin",
   "version": "0.0.1",
   "description": "## Development Setup",
+  "engines": {
+    "node": "6.9.2",
+    "yarn": "0.19.1"
+  },
   "main": "app.js",
   "dependencies": {
     "grommet": "^1.2.1",
