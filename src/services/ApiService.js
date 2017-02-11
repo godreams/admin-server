@@ -20,7 +20,7 @@ export default class ApiService {
       method: method,
       headers: this.headers(),
       body: body
-    }).then(function(response) {
+    }).then((response) => {
       let parseResponse = response.json()
 
       if (response.ok) {
