@@ -5,6 +5,7 @@ import Table from 'grommet/components/Table'
 import TableHeader from 'grommet/components/TableHeader'
 import TableRow from 'grommet/components/TableRow'
 import ApiService from 'services/ApiService'
+import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
 @observer export default class DonationsTable extends React.Component {
@@ -15,6 +16,16 @@ import ApiService from 'services/ApiService'
 
     this.fetchDonations = this.fetchDonations.bind(this)
     this.donationDetail = this.donationDetail.bind(this)
+  }
+
+  componentWillMount () {
+    let authorized = SessionStorageService.authorized(this)
+    console.log('authorization:' + authorized)
+
+    // redirect to login if not authorized
+    if (!authorized) {
+      this.props.router.push('/')
+    }
   }
 
   componentDidMount () {

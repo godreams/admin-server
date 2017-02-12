@@ -17,12 +17,12 @@ class Login extends React.Component {
   }
 
   componentWillMount () {
-    let authorized = SessionStorageService.authorized(this);
-    console.log('authorized:' + authorized);
+    let authorized = SessionStorageService.authorized(this)
+    console.log('authorized:' + authorized)
 
     // redirect to dashboard if already authorized
     if (authorized) {
-      this.props.router.push('/dashboard');
+      this.props.router.push('/dashboard')
     }
   }
 

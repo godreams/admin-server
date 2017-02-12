@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
   def show
-    render json: current_user.slice(:id, :name, :email)
+    @user_role = current_user_role
   end
 end
