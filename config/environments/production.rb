@@ -75,4 +75,14 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Deliver emails using Postmark.
+  config.action_mailer.delivery_method   = :postmark
+  config.action_mailer.postmark_settings = { :api_token => ENV['POSTMARK_API_TOKEN'] }
+
+  # Set default URL base for mailers.
+  config.action_mailer.default_url_options = { host: 'http://godreams.org' }
 end
+
+# Set application's default URL base using same config as mailer.
+Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options

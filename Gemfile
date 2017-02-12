@@ -43,7 +43,11 @@ gem 'jwt'
 # Form objects decoupled from models. http://www.trailblazer.to/gems/reform
 gem 'reform-rails'
 
+# Simple, efficient background processing for Ruby. http://sidekiq.org
 gem 'sidekiq'
+
+# Official integration library for using Rails and ActionMailer with the Postmark HTTP API.
+gem 'postmark-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
