@@ -17,6 +17,7 @@ import AppStateService from 'services/AppStateService'
 import DonationsTable from 'components/DonationsTable'
 import Button from 'grommet/components/Button'
 import DonationForm from 'components/DonationForm'
+import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
 @observer export default class Dashboard extends React.Component {
@@ -31,26 +32,14 @@ import DonationForm from 'components/DonationForm'
     this.hideDonationForm = this.hideDonationForm.bind(this)
   }
 
-  componentDidMount () {
-    // TODO: @hari: Do we need the loadState below? Cant we just use UserService(window.localStorage.authorizationToken) with a presence check?
-    AppStateService.loadState(this)
+  componentWillMount () {
+    let authorized = SessionStorageService.authorized(this);
+    console.log('authorization:' + authorized);
 
-    if (typeof(this.props.appState.authorization.token) !== 'string') {
-      this.props.router.push('/')
-      return
+    // redirect to login if not authorized
+    if (!authorized) {
+      this.props.router.push('/');
     }
-
-    // TODO: Isn't it better to call this an AuthorizationService?
-    let userService = new UserService(this.props.appState.authorization.token)
-    let that = this
-
-    userService.fetch().then(function (response) {
-      // TODO: Probably just update currentUserName and currentUserRole here?
-      that.userName = response.name
-    }).catch(function (response) {
-      // TODO: simply call this.logout() here?
-      console.log(response.code)
-    })
   }
 
   logout () {

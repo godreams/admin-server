@@ -4,23 +4,25 @@ import LoginForm from 'grommet/components/LoginForm'
 import Box from 'grommet/components/Box'
 import 'grommet/scss/vanilla/index'
 import LoginService from 'services/LoginService'
-import {observable} from 'mobx';
-import {observer, inject} from 'mobx-react';
-import AppStateService from 'services/AppStateService'
+import {observable} from 'mobx'
+import {observer, inject} from 'mobx-react'
+import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
 class Login extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
 
     this.attemptLogin = this.attemptLogin.bind(this)
   }
 
-  componentDidMount () {
-    AppStateService.loadState(this)
+  componentWillMount () {
+    let authorized = SessionStorageService.authorized(this);
+    console.log('authorized:' + authorized);
 
-    if (typeof(this.props.appState.authorization.token) === 'string') {
-      this.props.router.push('/dashboard')
+    // redirect to dashboard if already authorized
+    if (authorized) {
+      this.props.router.push('/dashboard');
     }
   }
 
@@ -29,10 +31,7 @@ class Login extends React.Component {
     let that = this
 
     loginService.fetch(data.username, data.password).then(function (response) {
-      that.props.appState.authorization.token = response.auth_token
-      that.props.appState.authorization.loginFailureMessage = null
-      that.props.appState.authorization.currentUserName = response.name
-      that.props.appState.authorization.currentUserRole = response.role
+      SessionStorageService.store(response, that)
       window.localStorage.authorizationToken = response.auth_token
       that.props.router.push('/dashboard')
     }).catch(function (response) {

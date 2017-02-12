@@ -16,7 +16,7 @@ module Users
     end
 
     def user_role
-      (user.national_finance_head || user.fellow || user.coach || user.volunteer).class.name
+      (user.national_finance_head || user.fellow || user.coach || user.volunteer).class.name if user
     end
 
     def user

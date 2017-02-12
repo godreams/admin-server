@@ -9,7 +9,8 @@ const appState = observable({
     token: null,
     loginFailureMessage: null,
     currentUserName: null,
-    currentUserRole: null
+    currentUserRole: null,
+    random: 'random'
   }
 })
 
