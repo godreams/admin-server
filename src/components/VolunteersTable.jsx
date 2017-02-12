@@ -73,10 +73,12 @@ import VolunteerForm from 'components/VolunteerForm'
   render () {
     return (
       <Box direction='column'>
+        { this.props.appState.authorization.currentUserRole == 'Coach' &&
         <Box align='center' pad='medium'>
           <Button label='Add Volunteer' primary={ true } onClick={ this.showVolunteerForm }/>
           { this.volunteerFormVisible && <VolunteerForm closeLayerCB={ this.hideVolunteerForm }/> }
         </Box>
+        }
         <Box>
           <Table scrollable={true} selectable={true}>
             <TableHeader labels={['Name', 'Email', 'Phone', 'Actions']}/>

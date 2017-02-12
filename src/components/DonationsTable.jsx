@@ -73,10 +73,12 @@ import DonationForm from 'components/DonationForm'
   render () {
     return (
       <Box direction='column'>
+        { this.props.appState.authorization.currentUserRole == 'Volunteer' &&
         <Box align='center' pad='medium'>
           <Button label='Add Donation' primary={ true } onClick={ this.showDonationForm }/>
           { this.donationFormVisible && <DonationForm closeLayerCB={ this.hideDonationForm }/> }
         </Box>
+        }
         <Box>
           <Table scrollable={true} selectable={true}>
             <TableHeader labels={['Donor', 'Amount', 'Date', 'Status']}/>
