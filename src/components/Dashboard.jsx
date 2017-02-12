@@ -3,7 +3,6 @@ import App from 'grommet/components/App'
 import Header from 'grommet/components/Header'
 import Title from 'grommet/components/Title'
 import {observer, inject} from 'mobx-react'
-import UserService from 'services/UserService'
 import {observable} from 'mobx'
 import Sidebar from 'grommet/components/Sidebar'
 import Menu from 'grommet/components/Menu'
@@ -21,7 +20,6 @@ import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
 @observer export default class Dashboard extends React.Component {
-  @observable userName = 'Loading...'
   @observable donationFormVisible = false
 
   constructor (props) {
@@ -30,6 +28,9 @@ import SessionStorageService from 'services/SessionStorageService'
     this.logout = this.logout.bind(this)
     this.showDonationForm = this.showDonationForm.bind(this)
     this.hideDonationForm = this.hideDonationForm.bind(this)
+    this.hasVolunteers = this.hasVolunteers.bind(this)
+    this.hasCoaches = this.hasCoaches.bind(this)
+    this.hasFellows = this.hasFellows.bind(this)
   }
 
   componentWillMount () {
@@ -53,6 +54,18 @@ import SessionStorageService from 'services/SessionStorageService'
 
   hideDonationForm () {
     this.donationFormVisible = false
+  }
+
+  hasVolunteers () {
+    return ['Coach', 'Fellow', 'NationalFinanceHead'].includes(this.props.appState.authorization.currentUserRole)
+  }
+
+  hasCoaches () {
+    return ['Fellow', 'NationalFinanceHead'].includes(this.props.appState.authorization.currentUserRole)
+  }
+
+  hasFellows () {
+    return this.props.appState.authorization.currentUserRole == 'NationalFinanceHead'
   }
 
   render () {
@@ -80,16 +93,25 @@ import SessionStorageService from 'services/SessionStorageService'
                   <Heading tag='h4' strong={ true }>Users</Heading>
                 </Header>
 
+                { this.hasVolunteers() &&
                 <Anchor href='#'>Volunteers</Anchor>
+                }
+
+                { this.hasCoaches() &&
                 <Anchor href='#'>Coaches</Anchor>
+                }
+
+                { this.hasFellows() &&
                 <Anchor href='#'>Fellows</Anchor>
+                }
+
               </Menu>
             </Box>
 
             <Footer pad={{horizontal: 'medium', vertical: 'small'}}>
               <Menu icon={<UserIcon />} dropAlign={{bottom: 'bottom'}} colorIndex="neutral-1-a">
                 <Box pad="medium">
-                  <Heading tag="h3" margin="none">{this.userName}</Heading>
+                  <Heading tag="h3" margin="none">{this.props.appState.authorization.currentUserName}</Heading>
                 </Box>
                 <Anchor href="#" onClick={this.logout} label="Logout" />
               </Menu>
