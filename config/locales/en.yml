@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  donations:
+    status_service:
+      approval_pending: "Pending Coach Approval"
+      approved_by:
+        coach: 'Approved by your Coach'
+        fellow: 'Approved by your Fellow'
+        national_finance_head: 'Approved by your National Finance Head'

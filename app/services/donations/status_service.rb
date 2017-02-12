@@ -1,29 +1,15 @@
 module Donations
   class StatusService
+    include Translatable
+
     def initialize(donation)
       @donation = donation
     end
 
     def status_string
-      return 'Pending Coach Approval' unless @donation.approved?
-
+      return t('donations.status_service.approval_pending') unless @donation.approved?
       latest_approval = @donation.approvals.order('created_at DESC').first
-      approval_string(latest_approval.approver)
-    end
-
-    private
-
-    def approval_string(approver)
-      case approver.class.name
-        when 'Coach'
-          'Approved by your Coach'
-        when 'Fellow'
-          'Approved by your Fellow'
-        when 'NationalFinanceHead'
-          'Approved by your National Finance Head'
-        else
-          raise
-      end
+      t("donations.status_service.approved_by.#{latest_approval.approver.class.name.underscore}")
     end
   end
 end
