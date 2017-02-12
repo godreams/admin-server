@@ -14,6 +14,7 @@ import UserIcon from 'grommet/components/icons/base/User'
 import Heading from 'grommet/components/Heading'
 import AppStateService from 'services/AppStateService'
 import DonationsTable from 'components/DonationsTable'
+import VolunteersTable from 'components/VolunteersTable'
 import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
@@ -25,15 +26,20 @@ import SessionStorageService from 'services/SessionStorageService'
     this.hasVolunteers = this.hasVolunteers.bind(this)
     this.hasCoaches = this.hasCoaches.bind(this)
     this.hasFellows = this.hasFellows.bind(this)
+    this.showDonationsTable = this.showDonationsTable.bind(this)
+    this.showVolunteersTable = this.showVolunteersTable.bind(this)
   }
 
+  // show the donations table by default
+  @observable visibleTable = 'donations'
+
   componentWillMount () {
-    let authorized = SessionStorageService.authorized(this);
-    console.log('authorization:' + authorized);
+    let authorized = SessionStorageService.authorized(this)
+    console.log('authorization:' + authorized)
 
     // redirect to login if not authorized
     if (!authorized) {
-      this.props.router.push('/');
+      this.props.router.push('/')
     }
   }
 
@@ -54,6 +60,16 @@ import SessionStorageService from 'services/SessionStorageService'
     return this.props.appState.authorization.currentUserRole == 'NationalFinanceHead'
   }
 
+  showDonationsTable () {
+    console.log('Displaying donations...')
+    this.visibleTable = 'donations'
+  }
+
+  showVolunteersTable () {
+    console.log('Displaying volunteers...')
+    this.visibleTable = 'volunteers'
+  }
+
   render () {
     return (
       <App centered={false}>
@@ -68,7 +84,7 @@ import SessionStorageService from 'services/SessionStorageService'
 
               <Menu size="small">
                 <Header align='end'>
-                  <Heading tag='h4' strong={ true }>Donations</Heading>
+                  <Heading tag='h4' strong={ true } onClick={ this.showDonationsTable }>Donations</Heading>
                 </Header>
 
                 <Anchor href='#' className='active'>Pending</Anchor>
@@ -80,7 +96,7 @@ import SessionStorageService from 'services/SessionStorageService'
                 </Header>
 
                 { this.hasVolunteers() &&
-                <Anchor href='#'>Volunteers</Anchor>
+                <Anchor onClick={ this.showVolunteersTable }>Volunteers</Anchor>
                 }
 
                 { this.hasCoaches() &&
@@ -113,7 +129,12 @@ import SessionStorageService from 'services/SessionStorageService'
             <em>(You are logged in as a { this.props.appState.authorization.currentUserRole })</em>
           </Box>
           <Box>
-            <DonationsTable />
+            { this.visibleTable === 'donations' &&
+              <DonationsTable />
+            }
+            { this.visibleTable === 'volunteers' &&
+              <VolunteersTable />
+            }
           </Box>
           </Box>
         </Split>
