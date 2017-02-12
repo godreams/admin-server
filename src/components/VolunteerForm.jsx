@@ -7,10 +7,10 @@ import Header from 'grommet/components/Header'
 import Heading from 'grommet/components/Heading'
 import FormField from 'grommet/components/FormField'
 import TextInput from 'grommet/components/TextInput'
-import NumberInput from 'grommet/components/NumberInput'
 import Footer from 'grommet/components/Footer'
 import Button from 'grommet/components/Button'
 import ApiService from 'services/ApiService'
+import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
 export default class VolunteerForm extends React.Component {
@@ -21,6 +21,16 @@ export default class VolunteerForm extends React.Component {
     this.updateDetail = this.updateDetail.bind(this)
     this.onChange = this.onChange.bind(this)
     this.submit = this.submit.bind(this)
+  }
+
+  componentWillMount () {
+    let authorized = SessionStorageService.authorized(this)
+    console.log('authorization:' + authorized)
+
+    // redirect to login if not authorized
+    if (!authorized) {
+      this.props.router.push('/')
+    }
   }
 
   @observable volunteerDetails = {
@@ -84,15 +94,15 @@ export default class VolunteerForm extends React.Component {
       // TODO: Display alert of error
       console.log('Form has error!')
     } else {
-      console.log('Creating new Volunteer (TODO)')
-      // let form = new FormData()
-      // Object.keys(this.volunteerDetails).forEach(key => form.append(key, this.volunteerDetails[key]));
-      //
-      // let apiService = new ApiService(this.props.appState.authorization.token)
-      // apiService.post('volunteers', form).then(response => {
-      //   // TODO: Handle response
-      //   console.log(response)
-      // })
+      console.log('Creating new Volunteer')
+      let form = new FormData()
+      Object.keys(this.volunteerDetails).forEach(key => form.append(key, this.volunteerDetails[key]));
+
+      let apiService = new ApiService(this.props.appState.authorization.token)
+      apiService.post('volunteers', form).then(response => {
+        // TODO: Handle response
+        console.log(response)
+      })
     }
   }
 
