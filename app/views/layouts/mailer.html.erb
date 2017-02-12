@@ -1,13 +1,241 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+<!-- This layout is pulled from https://github.com/TedGoas/Cerberus -->
+<!-- Check link above for details and options. -->
 
-  <body>
-    <%= yield %>
-  </body>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x-apple-disable-message-reformatting">
+  <title></title>
+
+  <style>
+    html,
+    body {
+      margin: 0 auto !important;
+      padding: 0 !important;
+      height: 100% !important;
+      width: 100% !important;
+    }
+
+    * {
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    div[style*="margin: 16px 0"] {
+      margin: 0 !important;
+    }
+
+    table,
+    td {
+      mso-table-lspace: 0pt !important;
+      mso-table-rspace: 0pt !important;
+    }
+
+    table {
+      border-spacing: 0 !important;
+      border-collapse: collapse !important;
+      table-layout: fixed !important;
+      margin: 0 auto !important;
+    }
+
+    table table table {
+      table-layout: auto;
+    }
+
+    /* What it does: Uses a better rendering method when resizing images in IE. */
+    img {
+      -ms-interpolation-mode: bicubic;
+    }
+
+    /* What it does: A work-around for iOS meddling in triggered links. */
+    *[x-apple-data-detectors] {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+
+    /* What it does: A work-around for Gmail meddling in triggered links. */
+    .x-gmail-data-detectors,
+    .x-gmail-data-detectors *,
+    .aBn {
+      border-bottom: 0 !important;
+      cursor: default !important;
+    }
+
+    /* What it does: Prevents Gmail from displaying an download button on large, non-linked images. */
+    .a6S {
+      display: none !important;
+      opacity: 0.01 !important;
+    }
+
+    /* If the above doesn't work, add a .g-img class to any image in question. */
+    img.g-img + div {
+      display: none !important;
+    }
+
+    /* What it does: Prevents underlining the button text in Windows 10 */
+    .button-link {
+      text-decoration: none !important;
+    }
+
+    /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+    /* Create one of these media queries for each additional viewport size you'd like to fix */
+    /* Thanks to Eric Lepetit @ericlepetitsf) for help troubleshooting */
+    @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+      /* iPhone 6 and 6+ */
+      .email-container {
+        min-width: 375px !important;
+      }
+    }
+
+  </style>
+
+  <!-- Progressive Enhancements -->
+  <style>
+
+    /* What it does: Hover styles for buttons */
+    .button-td,
+    .button-a {
+      transition: all 100ms ease-in;
+    }
+
+    .button-td:hover,
+    .button-a:hover {
+      background: #555555 !important;
+      border-color: #555555 !important;
+    }
+
+  </style>
+
+</head>
+<body width="100%" bgcolor="#222222" style="margin: 0; mso-line-height-rule: exactly;">
+<center style="width: 100%; background: #222222; text-align: left;">
+  <div style="max-width: 600px; margin: auto;" class="email-container">
+    <!--[if mso]>
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" align="center">
+      <tr>
+        <td>
+    <![endif]-->
+
+    <!-- Email Body : BEGIN -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px; margin-top: 40px !important;">
+
+      <!-- Hero Image, Flush : BEGIN -->
+      <tr>
+        <td bgcolor="#ffffff" style="text-align: center;">
+          <img src="http://godreams.org/assets/banner-logo.png" width="600" height="" alt="alt_text" border="0" align="center" style="margin-top: 40px; width: 80%; max-width: 600px; height: auto; background: #ffffff; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img">
+        </td>
+      </tr>
+      <!-- Hero Image, Flush : END -->
+
+      <!-- 1 Column Text + Button : BEGIN -->
+      <tr>
+        <td bgcolor="#ffffff">
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+              <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                <%= yield :body %>
+                <br><br>
+
+                Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora
+                torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas
+                scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <!-- 1 Column Text + Button : BEGIN -->
+
+      <!-- 2 Even Columns : BEGIN -->
+      <tr>
+        <td bgcolor="#ffffff" align="center" height="100%" valign="top" width="100%" style="padding-bottom: 40px">
+          <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center" width="100%" style="max-width:560px;">
+            <tr>
+              <td align="center" valign="top" width="50%">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 14px;text-align: left;">
+                  <tr>
+                    <td style="text-align: center; padding: 0 10px;">
+                      <img src="http://placehold.it/200" width="200" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 200px; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 10px 10px 0;" class="stack-column-center">
+                      Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad
+                      litora per conubia nostra, per torquent inceptos&nbsp;himenaeos.
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td align="center" valign="top" width="50%">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 14px;text-align: left;">
+                  <tr>
+                    <td style="text-align: center; padding: 0 10px;">
+                      <img src="http://placehold.it/200" width="200" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 200px; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; padding: 10px 10px 0;" class="stack-column-center">
+                      Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad
+                      litora per conubia nostra, per torquent inceptos&nbsp;himenaeos.
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <!-- Two Even Columns : END -->
+
+      <!-- Clear Spacer : BEGIN -->
+      <tr>
+        <td height="40" style="font-size: 0; line-height: 0;">
+          &nbsp;
+        </td>
+      </tr>
+      <!-- Clear Spacer : END -->
+
+      <!-- 1 Column Text + Button : BEGIN -->
+      <tr>
+        <td bgcolor="#ffffff">
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+              <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora
+                torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas
+                scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <!-- 1 Column Text + Button : BEGIN -->
+
+    </table>
+    <!-- Email Body : END -->
+
+    <!-- Email Footer : BEGIN -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px;">
+      <tr>
+        <td style="padding: 40px 10px;width: 100%;font-size: 12px; font-family: sans-serif; line-height:18px; text-align: center; color: #888888;" class="x-gmail-data-detectors">
+          <webversion style="color:#cccccc; text-decoration:underline; font-weight: bold;">View as a Web Page
+          </webversion>
+          <br><br>
+          Guardians of Dreams<br>1st Main, 1st block<br>Koramangala, Bangalore - 560034
+        </td>
+      </tr>
+    </table>
+    <!-- Email Footer : END -->
+
+    <!--[if mso]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+  </div>
+</center>
+</body>
 </html>
