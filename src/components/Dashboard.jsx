@@ -14,20 +14,14 @@ import UserIcon from 'grommet/components/icons/base/User'
 import Heading from 'grommet/components/Heading'
 import AppStateService from 'services/AppStateService'
 import DonationsTable from 'components/DonationsTable'
-import Button from 'grommet/components/Button'
-import DonationForm from 'components/DonationForm'
 import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
 @observer export default class Dashboard extends React.Component {
-  @observable donationFormVisible = false
-
   constructor (props) {
     super(props)
 
     this.logout = this.logout.bind(this)
-    this.showDonationForm = this.showDonationForm.bind(this)
-    this.hideDonationForm = this.hideDonationForm.bind(this)
     this.hasVolunteers = this.hasVolunteers.bind(this)
     this.hasCoaches = this.hasCoaches.bind(this)
     this.hasFellows = this.hasFellows.bind(this)
@@ -46,14 +40,6 @@ import SessionStorageService from 'services/SessionStorageService'
   logout () {
     AppStateService.unloadState(this)
     this.props.router.push('/')
-  }
-
-  showDonationForm () {
-    this.donationFormVisible = true
-  }
-
-  hideDonationForm () {
-    this.donationFormVisible = false
   }
 
   hasVolunteers () {
@@ -125,10 +111,6 @@ import SessionStorageService from 'services/SessionStorageService'
             </Header>
             <h3>Welcome {this.props.appState.authorization.currentUserName}</h3>
             <em>(You are logged in as a { this.props.appState.authorization.currentUserRole })</em>
-          </Box>
-          <Box margin='medium' alignSelf='center'>
-            <Button label='Add Donation' primary={ true } onClick={ this.showDonationForm }/>
-            { this.donationFormVisible && <DonationForm closeLayerCB={ this.hideDonationForm }/> }
           </Box>
           <Box>
             <DonationsTable />
