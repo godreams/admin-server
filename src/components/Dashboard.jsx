@@ -90,10 +90,11 @@ import SessionStorageService from 'services/SessionStorageService'
                 <Anchor href='#' className='active'>Pending</Anchor>
                 <Anchor href='#'>Approved</Anchor>
 
-
+                { this.props.appState.authorization.currentUserRole != 'Volunteer' &&
                 <Header align='end'>
                   <Heading tag='h4' strong={ true }>Users</Heading>
                 </Header>
+                }
 
                 { this.hasVolunteers() &&
                 <Anchor onClick={ this.showVolunteersTable }>Volunteers</Anchor>
