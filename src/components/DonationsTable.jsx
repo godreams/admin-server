@@ -24,22 +24,12 @@ import DonationForm from 'components/DonationForm'
     this.hideDonationForm = this.hideDonationForm.bind(this)
   }
 
-  componentWillMount () {
-    let authorized = SessionStorageService.authorized(this)
-    console.log('authorization:' + authorized)
-
-    // redirect to login if not authorized
-    if (!authorized) {
-      this.props.router.push('/')
-    }
-  }
-
   componentDidMount () {
     this.fetchDonations()
   }
 
   fetchDonations () {
-    console.log('Fetching donations')
+    console.log('Fetching donations with token:' + this.props.appState.authorization.token)
     let apiService = new ApiService(this.props.appState.authorization.token)
     apiService.fetch('donations').then(response => {
       console.log('Fetched ' + response.donations.length + ' donation(s) from server.')

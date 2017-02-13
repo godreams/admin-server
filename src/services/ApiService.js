@@ -15,7 +15,7 @@ export default class ApiService {
   }
 
   fetch (path, method = 'GET', body = null) {
-    console.log('Calling ' + this.fullUrl(path));
+    console.log('Calling: ' + this.fullUrl(path))
     return fetch(this.fullUrl(path), {
       method: method,
       headers: this.headers(),

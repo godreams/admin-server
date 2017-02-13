@@ -24,16 +24,6 @@ import VolunteerForm from 'components/VolunteerForm'
     this.hideVolunteerForm = this.hideVolunteerForm.bind(this)
   }
 
-  componentWillMount () {
-    let authorized = SessionStorageService.authorized(this)
-    console.log('authorization:' + authorized)
-
-    // redirect to login if not authorized
-    if (!authorized) {
-      this.props.router.push('/')
-    }
-  }
-
   componentDidMount () {
     this.fetchVolunteers()
   }

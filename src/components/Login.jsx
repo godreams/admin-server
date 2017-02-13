@@ -17,13 +17,12 @@ class Login extends React.Component {
   }
 
   componentWillMount () {
-    let authorized = SessionStorageService.authorized(this)
-    console.log('authorized:' + authorized)
-
-    // redirect to dashboard if already authorized
-    if (authorized) {
+    console.log('Calling SessionStorage in componentWillMount of Login')
+    SessionStorageService.authorize(this).then((response) => {
       this.props.router.push('/dashboard')
-    }
+    }).catch((response) => {
+      console.log('Authorization failed.')
+    })
   }
 
   attemptLogin (data) {
@@ -31,6 +30,7 @@ class Login extends React.Component {
     let that = this
 
     loginService.fetch(data.username, data.password).then(function (response) {
+      console.log('Calling SessionStorage.store in attemptLogin of Login')
       SessionStorageService.store(response, that)
       window.localStorage.authorizationToken = response.auth_token
       that.props.router.push('/dashboard')

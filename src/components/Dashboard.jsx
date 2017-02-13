@@ -34,13 +34,14 @@ import SessionStorageService from 'services/SessionStorageService'
   @observable visibleTable = 'donations'
 
   componentWillMount () {
-    let authorized = SessionStorageService.authorized(this)
-    console.log('authorization:' + authorized)
-
-    // redirect to login if not authorized
-    if (!authorized) {
+    console.log('Calling SessionStorage in componentWillMount of Dashboard')
+    SessionStorageService.authorize(this).then((response) => {
+      console.log('Authorized!')
+    }).catch((response) => {
+      // redirect to login if not authorized
+      console.log('Authorization failed')
       this.props.router.push('/')
-    }
+    })
   }
 
   logout () {

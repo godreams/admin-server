@@ -23,16 +23,6 @@ export default class VolunteerForm extends React.Component {
     this.submit = this.submit.bind(this)
   }
 
-  componentWillMount () {
-    let authorized = SessionStorageService.authorized(this)
-    console.log('authorization:' + authorized)
-
-    // redirect to login if not authorized
-    if (!authorized) {
-      this.props.router.push('/')
-    }
-  }
-
   @observable volunteerDetails = {
     name: null,
     email: null,

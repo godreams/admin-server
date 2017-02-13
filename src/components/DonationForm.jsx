@@ -102,6 +102,7 @@ export default class DonationForm extends React.Component {
       Object.keys(this.donationDetails).forEach(key => form.append(key, this.donationDetails[key]));
 
       let apiService = new ApiService(this.props.appState.authorization.token)
+      console.log('Posting new donation to server...')
       apiService.post('donations', form).then(response => {
         // TODO: Handle response
         console.log(response)
