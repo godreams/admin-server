@@ -1,14 +1,16 @@
 import React from 'react'
 import {observer, inject} from 'mobx-react'
 import {observable} from 'mobx'
+
 import Box from 'grommet/components/Box'
 import Table from 'grommet/components/Table'
 import TableHeader from 'grommet/components/TableHeader'
 import TableRow from 'grommet/components/TableRow'
-import ApiService from 'services/ApiService'
-import SessionStorageService from 'services/SessionStorageService'
 import Button from 'grommet/components/Button'
 import DonationForm from 'components/DonationForm'
+
+import SessionService from 'services/SessionService'
+import ApiService from 'services/ApiService'
 
 @inject('appState') @observer
 @observer export default class DonationsTable extends React.Component {
@@ -25,7 +27,9 @@ import DonationForm from 'components/DonationForm'
   }
 
   componentDidMount () {
-    this.fetchDonations()
+    if (SessionService.isAuthorized(this)) {
+      this.fetchDonations()
+    }
   }
 
   fetchDonations () {

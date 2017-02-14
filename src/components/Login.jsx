@@ -1,12 +1,13 @@
 import React from 'react'
+import {observable} from 'mobx'
+import {observer, inject} from 'mobx-react'
+
 import App from 'grommet/components/App'
 import LoginForm from 'grommet/components/LoginForm'
 import Box from 'grommet/components/Box'
-import 'grommet/scss/vanilla/index'
+
+import SessionService from 'services/SessionService'
 import LoginService from 'services/LoginService'
-import {observable} from 'mobx'
-import {observer, inject} from 'mobx-react'
-import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
 class Login extends React.Component {
@@ -16,13 +17,12 @@ class Login extends React.Component {
     this.attemptLogin = this.attemptLogin.bind(this)
   }
 
-  componentWillMount () {
-    console.log('Calling SessionStorage in componentWillMount of Login')
-    SessionStorageService.authorize(this).then((response) => {
+  componentWillMount() {
+    if (SessionService.isAuthorized(this)) {
       this.props.router.push('/dashboard')
-    }).catch((response) => {
-      console.log('Authorization failed.')
-    })
+    } else if (SessionService.isStored()) {
+      this.props.router.push('/')
+    }
   }
 
   attemptLogin (data) {
@@ -30,10 +30,8 @@ class Login extends React.Component {
     let that = this
 
     loginService.fetch(data.username, data.password).then(function (response) {
-      console.log('Calling SessionStorage.store in attemptLogin of Login')
-      SessionStorageService.store(response, that)
-      window.localStorage.authorizationToken = response.auth_token
-      that.props.router.push('/dashboard')
+      SessionService.store(response, that)
+      that.props.router.push('/')
     }).catch(function (response) {
       console.log(response.code)
       that.props.appState.authorization.loginFailureMessage = response.message

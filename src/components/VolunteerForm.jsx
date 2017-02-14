@@ -10,7 +10,6 @@ import TextInput from 'grommet/components/TextInput'
 import Footer from 'grommet/components/Footer'
 import Button from 'grommet/components/Button'
 import ApiService from 'services/ApiService'
-import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
 export default class VolunteerForm extends React.Component {

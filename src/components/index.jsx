@@ -4,6 +4,8 @@ import Routes from 'components/Routes'
 import {observable} from 'mobx'
 import {Provider} from 'mobx-react'
 
+import 'grommet/scss/vanilla/index'
+
 const appState = observable({
   authorization: {
     token: null,

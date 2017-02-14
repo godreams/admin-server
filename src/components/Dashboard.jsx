@@ -1,9 +1,10 @@
 import React from 'react'
+import {observer, inject} from 'mobx-react'
+import {observable} from 'mobx'
+
 import App from 'grommet/components/App'
 import Header from 'grommet/components/Header'
 import Title from 'grommet/components/Title'
-import {observer, inject} from 'mobx-react'
-import {observable} from 'mobx'
 import Sidebar from 'grommet/components/Sidebar'
 import Menu from 'grommet/components/Menu'
 import Anchor from 'grommet/components/Anchor'
@@ -12,12 +13,13 @@ import Split from 'grommet/components/Split'
 import Box from 'grommet/components/Box'
 import UserIcon from 'grommet/components/icons/base/User'
 import Heading from 'grommet/components/Heading'
-import AppStateService from 'services/AppStateService'
 import DonationsTable from 'components/DonationsTable'
 import VolunteersTable from 'components/VolunteersTable'
 import CoachesTable from 'components/CoachesTable'
 import FellowsTable from 'components/FellowsTable'
-import SessionStorageService from 'services/SessionStorageService'
+
+import SessionService from 'services/SessionService'
+import AppStateService from 'services/AppStateService'
 
 @inject('appState') @observer
 @observer export default class Dashboard extends React.Component {
@@ -38,14 +40,13 @@ import SessionStorageService from 'services/SessionStorageService'
   @observable visibleTable = 'donations'
 
   componentWillMount () {
-    console.log('Calling SessionStorage in componentWillMount of Dashboard')
-    SessionStorageService.authorize(this).then((response) => {
-      console.log('Authorized!')
-    }).catch((response) => {
-      // redirect to login if not authorized
-      console.log('Authorization failed')
+    if (SessionService.isAuthorized(this)) {
+      // We're ready. Proceed to render.
+    } else if (SessionService.isStored()) {
       this.props.router.push('/')
-    })
+    } else {
+      this.props.router.push('/login')
+    }
   }
 
   logout () {

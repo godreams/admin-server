@@ -6,7 +6,6 @@ import Table from 'grommet/components/Table'
 import TableHeader from 'grommet/components/TableHeader'
 import TableRow from 'grommet/components/TableRow'
 import ApiService from 'services/ApiService'
-import SessionStorageService from 'services/SessionStorageService'
 import Button from 'grommet/components/Button'
 import VolunteerForm from 'components/VolunteerForm'
 
