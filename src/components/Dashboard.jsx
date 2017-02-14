@@ -93,7 +93,7 @@ import SessionStorageService from 'services/SessionStorageService'
             <Box pad={ {horizontal: 'medium'} }>
               <Header>
                 <Title>
-                  Guardiand donorApp
+                  Guardians donorApp
                 </Title>
               </Header>
 

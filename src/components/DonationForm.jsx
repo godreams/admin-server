@@ -14,6 +14,16 @@ import ApiService from 'services/ApiService'
 
 @inject('appState') @observer
 export default class DonationForm extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.handleClose = this.handleClose.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.error = this.error.bind(this)
+    this.errorMessage = this.errorMessage.bind(this)
+    this.submit = this.submit.bind(this)
+  }
+
   @observable donationDetails = {
     name: null,
     email: null,
@@ -24,79 +34,72 @@ export default class DonationForm extends React.Component {
     address: null
   }
 
-  @computed get hasNameError() {
-    return this.donationDetails.name != null && this.donationDetails.name.length == 0
-  }
-
-  @computed get hasEmailError() {
-    // Reference for regex: http://www.w3resource.com/javascript/form/email-validation.php
-    const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
-    let invalid = !EMAIL_REGEX.test(this.donationDetails.email)
-    let notEmpty = this.donationDetails.email != null
-    return  notEmpty && invalid
-  }
-
-  @computed get hasPhoneError() {
-    let notEmpty = this.donationDetails.phone != null
-    const PHONE_REGEX = /^[0-9]{10}$/
-    let invalid = !PHONE_REGEX.test(this.donationDetails.phone)
-    return invalid && notEmpty
-  }
-
-  @computed get hasAmountError() {
-    return this.donationDetails.amount != null && this.donationDetails.amount < 1
-  }
-
-  @computed get hasAnyError() {
-    let required = [this.donationDetails.name, this.donationDetails.email, this.donationDetails.phone, this.donationDetails.amount]
-    return required.includes(null) || this.hasNameError || this.hasEmailError || this.hasPhoneError || this.hasAmountError
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.handleClose = this.handleClose.bind(this)
-    this.updateDetail = this.updateDetail.bind(this)
-    this.onChange = this.onChange.bind(this)
-    this.nameErrorMessage = this.nameErrorMessage.bind(this)
-    this.emailErrorMessage = this.emailErrorMessage.bind(this)
-    this.phoneErrorMessage = this.phoneErrorMessage.bind(this)
-    this.amountErrorMessage = this.amountErrorMessage.bind(this)
-    this.submit = this.submit.bind(this)
+  @observable showErrors = {
+    base: false,
+    name: false,
+    email: false,
+    phone: false,
+    amount: false
   }
 
   handleClose () {
     this.props.closeLayerCB()
   }
 
-  updateDetail (key, value) {
-    this.donationDetails[key] = value
+  error (field) {
+    let showError = this.showErrors.base || this.showErrors[field]
+    return showError ? this.errorMessage(field) : ''
+  }
+
+  // TODO: Can this be written cleaner? Some dynamic function calling?
+  errorMessage(field) {
+    if (field == 'name') {
+      return this.nameErrorMessage
+    } else if (field == 'phone') {
+      return this.phoneErrorMessage
+    } else if (field == 'email') {
+      return this.emailErrorMessage
+    } else if (field == 'amount') {
+      return this.amountErrorMessage
+    }
+  }
+
+  @computed get nameErrorMessage () {
+    let hasNameError = this.donationDetails.name == null || this.donationDetails.name.length < 2
+    return hasNameError ? 'does not look like a name' : ''
+  }
+
+  @computed get emailErrorMessage () {
+    // Reference for regex: http://www.w3resource.com/javascript/form/email-validation.php
+    const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
+    let hasEmailError = !EMAIL_REGEX.test(this.donationDetails.email)
+    return hasEmailError ? 'does not look like a valid email' : ''
+  }
+
+  @computed get phoneErrorMessage () {
+    const PHONE_REGEX = /^[0-9]{10}$/
+    let hasPhoneError = !PHONE_REGEX.test(this.donationDetails.phone)
+    return hasPhoneError ? 'is not a 10-digit mobile number' : ''
+  }
+
+  @computed get amountErrorMessage () {
+    let hasAmountError = this.donationDetails.amount == null || this.donationDetails.amount < 1
+    return hasAmountError ? 'needs to a positive number' : ''
+  }
+
+  @computed get hasAnyError() {
+    return this.nameErrorMessage || this.emailErrorMessage || this.phoneErrorMessage || this.amountErrorMessage
   }
 
   onChange (event) {
-    this.updateDetail(event.target.name, event.target.value)
+    this.donationDetails[event.target.name] = event.target.value
+    this.showErrors[event.target.name] = true
   }
 
-  nameErrorMessage () {
-    return this.hasNameError ? "cannot be blank" : ""
-  }
-
-  emailErrorMessage () {
-    return this.hasEmailError ? "doesn't look like a valid email" : ""
-  }
-
-  phoneErrorMessage () {
-    return this.hasPhoneError ? "is not a 10-digit mobile number" : ""
-  }
-
-  amountErrorMessage () {
-    return this.hasAmountError ? "needs to a positive number" : ""
-  }
-
-  submit () {
+  submit (event) {
+    event.preventDefault()
     if(this.hasAnyError) {
-      // TODO: Display alert of error
-      console.log('Form has error!')
+      this.showErrors.base = true;
     } else {
       let form = new FormData()
       Object.keys(this.donationDetails).forEach(key => form.append(key, this.donationDetails[key]));
@@ -114,21 +117,24 @@ export default class DonationForm extends React.Component {
     return (
     <Layer closer={true} onClose={this.handleClose}>
         <Form pad='medium'>
-          <Header>
+          <Header direction='column' pad='medium'>
             <Heading>
               Donor Details
             </Heading>
+            { this.showErrors.base &&
+            <span style={{color: 'red'}}>Form has errors!</span>
+            }
           </Header>
-          <FormField label='Name' error={ this.nameErrorMessage() }>
+          <FormField label='Name' error={ this.error('name') }>
             <TextInput name='name' onDOMChange={ this.onChange }/>
           </FormField>
-          <FormField label='Email' error={ this.emailErrorMessage() }>
+          <FormField label='Email' error={ this.error('email') }>
             <TextInput name='email' onDOMChange={ this.onChange }/>
           </FormField>
-          <FormField label='Phone' error={ this.phoneErrorMessage() }>
+          <FormField label='Phone' error={ this.error('phone') }>
             <TextInput name='phone' onDOMChange={ this.onChange }/>
           </FormField>
-          <FormField label='Amount' error={ this.amountErrorMessage() }>
+          <FormField label='Amount' error={ this.error('amount') }>
             <NumberInput name='amount' onChange={ this.onChange }/>
           </FormField>
           <FormField label='PAN'>
