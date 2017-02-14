@@ -16,6 +16,7 @@ import AppStateService from 'services/AppStateService'
 import DonationsTable from 'components/DonationsTable'
 import VolunteersTable from 'components/VolunteersTable'
 import CoachesTable from 'components/CoachesTable'
+import FellowsTable from 'components/FellowsTable'
 import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
@@ -30,6 +31,7 @@ import SessionStorageService from 'services/SessionStorageService'
     this.showDonationsTable = this.showDonationsTable.bind(this)
     this.showVolunteersTable = this.showVolunteersTable.bind(this)
     this.showCoachesTable = this.showCoachesTable.bind(this)
+    this.showFellowsTable = this.showFellowsTable.bind(this)
   }
 
   // show the donations table by default
@@ -78,6 +80,11 @@ import SessionStorageService from 'services/SessionStorageService'
     this.visibleTable = 'coaches'
   }
 
+  showFellowsTable () {
+    console.log('Displaying fellows...')
+    this.visibleTable = 'fellows'
+  }
+
   render () {
     return (
       <App centered={false}>
@@ -86,7 +93,7 @@ import SessionStorageService from 'services/SessionStorageService'
             <Box pad={ {horizontal: 'medium'} }>
               <Header>
                 <Title>
-                  National Finance Head
+                  Guardiand donorApp
                 </Title>
               </Header>
 
@@ -113,7 +120,7 @@ import SessionStorageService from 'services/SessionStorageService'
                 }
 
                 { this.hasFellows() &&
-                <Anchor href='#'>Fellows</Anchor>
+                <Anchor onClick={ this.showFellowsTable }>Fellows</Anchor>
                 }
 
               </Menu>
@@ -147,6 +154,10 @@ import SessionStorageService from 'services/SessionStorageService'
             {
               this.visibleTable === 'coaches' &&
               <CoachesTable />
+            }
+            {
+              this.visibleTable === 'fellows' &&
+              <FellowsTable />
             }
           </Box>
           </Box>
