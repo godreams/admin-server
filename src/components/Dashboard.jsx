@@ -15,6 +15,7 @@ import Heading from 'grommet/components/Heading'
 import AppStateService from 'services/AppStateService'
 import DonationsTable from 'components/DonationsTable'
 import VolunteersTable from 'components/VolunteersTable'
+import CoachesTable from 'components/CoachesTable'
 import SessionStorageService from 'services/SessionStorageService'
 
 @inject('appState') @observer
@@ -28,6 +29,7 @@ import SessionStorageService from 'services/SessionStorageService'
     this.hasFellows = this.hasFellows.bind(this)
     this.showDonationsTable = this.showDonationsTable.bind(this)
     this.showVolunteersTable = this.showVolunteersTable.bind(this)
+    this.showCoachesTable = this.showCoachesTable.bind(this)
   }
 
   // show the donations table by default
@@ -71,6 +73,11 @@ import SessionStorageService from 'services/SessionStorageService'
     this.visibleTable = 'volunteers'
   }
 
+  showCoachesTable () {
+    console.log('Displaying coaches...')
+    this.visibleTable = 'coaches'
+  }
+
   render () {
     return (
       <App centered={false}>
@@ -102,7 +109,7 @@ import SessionStorageService from 'services/SessionStorageService'
                 }
 
                 { this.hasCoaches() &&
-                <Anchor href='#'>Coaches</Anchor>
+                <Anchor onClick={ this.showCoachesTable }>Coaches</Anchor>
                 }
 
                 { this.hasFellows() &&
@@ -136,6 +143,10 @@ import SessionStorageService from 'services/SessionStorageService'
             }
             { this.visibleTable === 'volunteers' &&
               <VolunteersTable />
+            }
+            {
+              this.visibleTable === 'coaches' &&
+              <CoachesTable />
             }
           </Box>
           </Box>

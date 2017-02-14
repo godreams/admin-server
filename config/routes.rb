@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     resource :user, only: %w(show)
     resources :volunteers, only: %w(index create)
+    resources :coaches, only: %w(index create)
   end
 
   match '*path', to: 'client#index', via: :all
