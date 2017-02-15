@@ -114,8 +114,7 @@ export default class DonationForm extends React.Component {
       console.log('Posting new donation to server...')
       apiService.post('donations', form).then((response) => {
         this.formState = 'complete'
-        console.log('response:')
-        console.log(response)
+        this.props.addDonationCB(response.donation)
       })
     }
   }
@@ -174,5 +173,6 @@ export default class DonationForm extends React.Component {
 }
 
 DonationForm.propTypes = {
-  closeLayerCB: React.PropTypes.func
+  closeLayerCB: React.PropTypes.func,
+  addDonationCB: React.PropTypes.func
 };

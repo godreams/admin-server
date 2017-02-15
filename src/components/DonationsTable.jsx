@@ -24,6 +24,7 @@ import ApiService from 'services/ApiService'
     this.donationDetail = this.donationDetail.bind(this)
     this.showDonationForm = this.showDonationForm.bind(this)
     this.hideDonationForm = this.hideDonationForm.bind(this)
+    this.addDonation = this.addDonation.bind(this)
   }
 
   componentDidMount () {
@@ -64,13 +65,17 @@ import ApiService from 'services/ApiService'
     this.donationFormVisible = false
   }
 
+  addDonation (donation) {
+    this.donations.unshift(donation)
+  }
+
   render () {
     return (
       <Box direction='column'>
         { this.props.appState.authorization.currentUserRole == 'Volunteer' &&
         <Box align='center' pad='medium'>
           <Button label='Add Donation' primary={ true } onClick={ this.showDonationForm }/>
-          { this.donationFormVisible && <DonationForm closeLayerCB={ this.hideDonationForm }/> }
+          { this.donationFormVisible && <DonationForm closeLayerCB={ this.hideDonationForm } addDonationCB={ this.addDonation }/> }
         </Box>
         }
         <Box>

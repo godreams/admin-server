@@ -15,7 +15,7 @@ class DonationsController < ApplicationController
 
     if form.validate(params)
       form.save!(current_volunteer)
-      render json: { ok: true, donation: form.model }
+      @donation = form.model
     else
       raise ValidationFailureException.new(form)
     end
