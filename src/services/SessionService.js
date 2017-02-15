@@ -31,6 +31,11 @@ export default class SessionService {
   }
 
   static store (response, that) {
+    // Store the token in localstorage if it isn't there.
+    if (typeof(window.localStorage.authorizationToken) === 'undefined') {
+      window.localStorage.authorizationToken = response.auth_token
+    }
+
     that.props.appState.authorization.token = response.auth_token
     that.props.appState.authorization.loginFailureMessage = null
     that.props.appState.authorization.currentUserName = response.name
