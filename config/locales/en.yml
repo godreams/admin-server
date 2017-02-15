@@ -24,9 +24,9 @@ en:
     status_service:
       approval_pending: "Pending Coach Approval"
       approved_by:
-        coach: 'Approved by your Coach'
-        fellow: 'Approved by your Fellow'
-        national_finance_head: 'Approved by your National Finance Head'
+        coach: 'Pending Fellow Approval'
+        fellow: 'Pending NFH Approval'
+        national_finance_head: 'Approved Complete'
   sms_service:
     templates:
       donation_acknowledgement: "%{name}, thank you for your donation of Rs. %{amount}. We will send you the E-Receipt containing the tax exemption certificate within 45 days."
