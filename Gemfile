@@ -52,6 +52,7 @@ gem 'postmark-rails'
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails' # RSpec for Rails-3+ http://relishapp.com/rspec/rspec-rails
+  gem 'letter_opener' # Preview mail in the browser instead of sending.
 end
 
 group :development do
