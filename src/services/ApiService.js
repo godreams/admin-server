@@ -32,7 +32,7 @@ export default class ApiService {
   }
 
   post (path, body) {
-    this.fetch(path, 'POST', body)
+    return this.fetch(path, 'POST', body)
   }
 
   fullUrl (path) {
