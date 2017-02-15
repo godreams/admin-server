@@ -25,6 +25,9 @@ import ApiService from 'services/ApiService'
     this.showDonationForm = this.showDonationForm.bind(this)
     this.hideDonationForm = this.hideDonationForm.bind(this)
     this.addDonation = this.addDonation.bind(this)
+    this.approvalLink = this.approvalLink.bind(this)
+    this.approve = this.approve.bind(this)
+    this.markApproval = this.markApproval.bind(this)
   }
 
   componentDidMount () {
@@ -53,6 +56,7 @@ import ApiService from 'services/ApiService'
         <td>{donation.amount}</td>
         <td>{donation.created_at}</td>
         <td className="secondary">{donation.status}</td>
+        <td>{donation.approvable ? this.approvalLink(donation) : ''}</td>
       </TableRow>
     )
   }
@@ -69,6 +73,26 @@ import ApiService from 'services/ApiService'
     this.donations.unshift(donation)
   }
 
+  approvalLink (donation) {
+    return (
+      <a onClick={this.approve.bind(null, donation.id)}>Approve</a>
+    )
+  }
+
+  approve (donationId) {
+    let apiService = new ApiService(this.props.appState.authorization.token)
+    let postURL = 'donations/' + donationId + '/approve'
+    apiService.post(postURL, null).then(response => {
+      this.markApproval(response.donation)
+    })
+  }
+
+  markApproval (donation) {
+    let oldEntry = this.donations.find(d => d.id === donation.id)
+    oldEntry.status = donation.status
+    oldEntry.approvable = donation.approvable
+  }
+
   render () {
     return (
       <Box direction='column'>
@@ -80,7 +104,7 @@ import ApiService from 'services/ApiService'
         }
         <Box>
           <Table scrollable={true} selectable={true}>
-            <TableHeader labels={['Donor', 'Amount', 'Date', 'Status']}/>
+            <TableHeader labels={['Donor', 'Amount', 'Date', 'Status', 'Actions']}/>
               <tbody>
               { this.donationsPresent() &&
               this.donations.map(donation => this.donationDetail(donation))

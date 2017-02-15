@@ -39,9 +39,9 @@ class DonationsController < ApplicationController
 
   # POST /donations/:id/approve
   def approve
-    approver = current_national_finance_head || current_fellow
+    approver = current_national_finance_head || current_fellow || current_coach
     donation = Donation.find(params[:id])
-    approval = Donations::ApprovalService.new(donation).approve(approver)
-    render json: { success: true, donation: donation.reload, approval: approval }
+    Donations::ApprovalService.new(donation).approve(approver)
+    @donation = donation.reload
   end
 end

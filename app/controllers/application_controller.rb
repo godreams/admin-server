@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   before_action :authenticate_request
 
-  helper_method :current_user
+  helper_method :current_user, :current_user_role
 
   rescue_from ApplicationException, with: :show_exception
 

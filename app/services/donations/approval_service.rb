@@ -5,7 +5,7 @@ module Donations
     end
 
     def approve(approver)
-      raise Donations::AlreadyApprovedException if @donation.approved?
+      raise Donations::AlreadyApprovedException unless @donation.approvable?(approver)
       raise Donations::ApproveNotAllowedException if approver.blank?
       Approval.create!(donation: @donation, approver: approver)
     end
