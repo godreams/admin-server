@@ -41,4 +41,8 @@ export default class SessionService {
     that.props.appState.authorization.currentUserName = response.name
     that.props.appState.authorization.currentUserRole = response.role
   }
+
+  static destroy() {
+    window.localStorage.removeItem('authorizationToken')
+  }
 }

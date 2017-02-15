@@ -41,7 +41,7 @@ export default class Loader extends React.Component {
     if (this.hasLoaded) {
       return <Button path='/dashboard'>Go to Dashboard</Button>
     } else if (this.hasErrored) {
-      return 'Please reload the page.'
+      return <Button path='/login'>Try logging in</Button>
     }
   }
 
@@ -58,6 +58,7 @@ export default class Loader extends React.Component {
       }).catch(() => {
         that.progress = 50
         that.status = 'error'
+        SessionService.destroy()
       })
     } else {
       this.props.router.push('/login')
