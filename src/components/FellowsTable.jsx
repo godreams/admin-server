@@ -21,6 +21,7 @@ import FellowForm from 'components/FellowForm'
     this.fellowDetail = this.fellowDetail.bind(this)
     this.showFellowForm = this.showFellowForm.bind(this)
     this.hideFellowForm = this.hideFellowForm.bind(this)
+    this.addFellow = this.addFellow.bind(this)
   }
 
   componentDidMount () {
@@ -59,13 +60,17 @@ import FellowForm from 'components/FellowForm'
     this.fellowFormVisible = false
   }
 
+  addFellow (fellow) {
+    this.fellows.unshift(fellow)
+  }
+
   render () {
     return (
       <Box direction='column'>
         { this.props.appState.authorization.currentUserRole == 'NationalFinanceHead' &&
         <Box align='center' pad='medium'>
           <Button label='Add Fellow' primary={ true } onClick={ this.showFellowForm }/>
-          { this.fellowFormVisible && <FellowForm closeLayerCB={ this.hideFellowForm }/> }
+          { this.fellowFormVisible && <FellowForm closeLayerCB={ this.hideFellowForm } addFellowCB={ this.addFellow }/> }
         </Box>
         }
         <Box>

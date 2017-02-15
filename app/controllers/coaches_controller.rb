@@ -8,11 +8,11 @@ class CoachesController < ApplicationController
   def create
     raise Users::AuthorizationFailedException if current_fellow.blank?
 
-    form = Coaches::CreateForm.new(Donation.new)
+    form = Coaches::CreateForm.new(Coach.new)
 
     if form.validate(params)
       form.save!(current_fellow)
-      render json: { success: true, coach: form.model }
+      @coach = form.model
     else
       raise ValidationFailureException.new(form)
     end

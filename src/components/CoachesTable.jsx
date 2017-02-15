@@ -21,6 +21,7 @@ import CoachForm from 'components/CoachForm'
     this.coachDetail = this.coachDetail.bind(this)
     this.showCoachForm = this.showCoachForm.bind(this)
     this.hideCoachForm = this.hideCoachForm.bind(this)
+    this.addCoach = this.addCoach.bind(this)
   }
 
   componentDidMount () {
@@ -59,13 +60,17 @@ import CoachForm from 'components/CoachForm'
     this.coachFormVisible = false
   }
 
+  addCoach (coach) {
+    this.coaches.unshift(coach)
+  }
+
   render () {
     return (
       <Box direction='column'>
         { this.props.appState.authorization.currentUserRole == 'Fellow' &&
         <Box align='center' pad='medium'>
           <Button label='Add Coach' primary={ true } onClick={ this.showCoachForm }/>
-          { this.coachFormVisible && <CoachForm closeLayerCB={ this.hideCoachForm }/> }
+          { this.coachFormVisible && <CoachForm closeLayerCB={ this.hideCoachForm } addCoachCB={ this.addCoach }/> }
         </Box>
         }
         <Box>

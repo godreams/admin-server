@@ -10,12 +10,17 @@ import TextInput from 'grommet/components/TextInput'
 import Footer from 'grommet/components/Footer'
 import Button from 'grommet/components/Button'
 import ApiService from 'services/ApiService'
+import SpinningIcon from 'grommet/components/icons/Spinning'
+import Box from 'grommet/components/Box'
+import Status from 'grommet/components/icons/Status'
 
 @inject('appState') @observer
-export default class CoachForm extends React.Component {
+export default class FellowForm extends React.Component {
   constructor (props) {
     super(props)
 
+    this.error = this.error.bind(this)
+    this.errorMessage = this.errorMessage.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.updateDetail = this.updateDetail.bind(this)
     this.onChange = this.onChange.bind(this)
@@ -28,42 +33,50 @@ export default class CoachForm extends React.Component {
     phone: null
   }
 
-  @computed get nameErrorMessage() {
-    if (this.fellowDetails.name != null && this.fellowDetails.name.length == 0) {
-      return 'cannot be blank'
-    } else {
-      return ''
+  @observable showErrors = {
+    base: false,
+    name: false,
+    email: false,
+    phone: false
+  }
+
+  @observable formState = 'fresh'
+
+  error (field) {
+    let showError = this.showErrors.base || this.showErrors[field]
+    return showError ? this.errorMessage(field) : ''
+  }
+
+  errorMessage(field) {
+    if (field == 'name') {
+      return this.nameErrorMessage
+    } else if (field == 'phone') {
+      return this.phoneErrorMessage
+    } else if (field == 'email') {
+      return this.emailErrorMessage
     }
   }
 
-  @computed get emailErrorMessage() {
+  @computed get nameErrorMessage () {
+    let hasNameError = this.fellowDetails.name == null || this.fellowDetails.name.length < 2
+    return hasNameError ? 'does not look like a name' : ''
+  }
+
+  @computed get emailErrorMessage () {
     // Reference for regex: http://www.w3resource.com/javascript/form/email-validation.php
     const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
-    let invalid = !EMAIL_REGEX.test(this.fellowDetails.email)
-    let notEmpty = this.fellowDetails.email != null
-
-    if (notEmpty && invalid) {
-      return 'does not look like a valid email'
-    } else {
-      return ''
-    }
+    let hasEmailError = !EMAIL_REGEX.test(this.fellowDetails.email)
+    return hasEmailError ? 'does not look like a valid email' : ''
   }
 
-  @computed get phoneErrorMessage() {
-    let notEmpty = this.fellowDetails.phone != null
+  @computed get phoneErrorMessage () {
     const PHONE_REGEX = /^[0-9]{10}$/
-    let invalid = !PHONE_REGEX.test(this.fellowDetails.phone)
-    if (invalid && notEmpty) {
-      return 'is not a 10-digit mobile number'
-    } else {
-      return ''
-    }
+    let hasPhoneError = !PHONE_REGEX.test(this.fellowDetails.phone)
+    return hasPhoneError ? 'is not a 10-digit mobile number' : ''
   }
 
   @computed get hasAnyError() {
-    // TODO: Add check for length of error messages
-    let required = [this.fellowDetails.name, this.fellowDetails.email, this.fellowDetails.phone]
-    return required.includes(null)
+    return this.nameErrorMessage || this.emailErrorMessage || this.phoneErrorMessage
   }
 
   handleClose () {
@@ -76,21 +89,22 @@ export default class CoachForm extends React.Component {
 
   onChange (event) {
     this.updateDetail(event.target.name, event.target.value)
+    this.showErrors[event.target.name] = true
   }
 
-  submit () {
+  submit (event) {
+    event.preventDefault()
     if(this.hasAnyError) {
-      // TODO: Display alert of error
-      console.log('Form has error!')
+      this.showErrors.base = true
     } else {
-      console.log('Creating new Coach')
+      this.formState = 'submitting'
       let form = new FormData()
       Object.keys(this.fellowDetails).forEach(key => form.append(key, this.fellowDetails[key]));
 
       let apiService = new ApiService(this.props.appState.authorization.token)
       apiService.post('fellows', form).then(response => {
-        // TODO: Handle response
-        console.log(response)
+        this.formState = 'complete'
+        this.props.addFellowCB(response.fellow)
       })
     }
   }
@@ -98,30 +112,48 @@ export default class CoachForm extends React.Component {
   render () {
     return (
       <Layer closer={true} onClose={this.handleClose}>
+        { this.formState == 'submitting' &&
+        <Box direction='column' justify='center' align='center' pad='medium'>
+          <SpinningIcon size='xlarge'/>
+          <span style={{color: 'grey'}}>Adding New Fellow</span>
+        </Box>
+        }
+        { this.formState == 'fresh' &&
         <Form pad='medium'>
-          <Header>
+          <Header direction='column' pad='medium'>
             <Heading>
-              Coach Details
+              Fellow Details
             </Heading>
+            { this.showErrors.base &&
+            <span style={{color: 'red'}}>Form has errors!</span>
+            }
           </Header>
-          <FormField label='Name' error={ this.nameErrorMessage }>
+          <FormField label='Name' error={ this.error('name') }>
             <TextInput name='name' onDOMChange={ this.onChange }/>
           </FormField>
-          <FormField label='Email' error={ this.emailErrorMessage }>
+          <FormField label='Email' error={ this.error('email') }>
             <TextInput name='email' onDOMChange={ this.onChange }/>
           </FormField>
-          <FormField label='Phone' error={ this.phoneErrorMessage }>
+          <FormField label='Phone' error={ this.error('phone') }>
             <TextInput name='phone' onDOMChange={ this.onChange }/>
           </FormField>
           <Footer pad={{'vertical': 'medium'}}>
             <Button label='Add' type='submit' onClick={this.submit}/>
           </Footer>
         </Form>
+        }
+        { this.formState == 'complete' &&
+        <Box direction='column' justify='center' align='center' pad='medium'>
+          <Status value='ok'/>
+          <span>Fellow created!</span>
+        </Box>
+        }
       </Layer>
     )
   }
 }
 
-CoachForm.propTypes = {
-  closeLayerCB: React.PropTypes.func
+FellowForm.propTypes = {
+  closeLayerCB: React.PropTypes.func,
+  addFellowCB: React.PropTypes.func
 };

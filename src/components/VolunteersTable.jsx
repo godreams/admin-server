@@ -21,6 +21,7 @@ import VolunteerForm from 'components/VolunteerForm'
     this.volunteerDetail = this.volunteerDetail.bind(this)
     this.showVolunteerForm = this.showVolunteerForm.bind(this)
     this.hideVolunteerForm = this.hideVolunteerForm.bind(this)
+    this.addVolunteer = this.addVolunteer.bind(this)
   }
 
   componentDidMount () {
@@ -59,13 +60,17 @@ import VolunteerForm from 'components/VolunteerForm'
     this.volunteerFormVisible = false
   }
 
+  addVolunteer (volunteer) {
+    this.volunteers.unshift(volunteer)
+  }
+
   render () {
     return (
       <Box direction='column'>
         { this.props.appState.authorization.currentUserRole == 'Coach' &&
         <Box align='center' pad='medium'>
           <Button label='Add Volunteer' primary={ true } onClick={ this.showVolunteerForm }/>
-          { this.volunteerFormVisible && <VolunteerForm closeLayerCB={ this.hideVolunteerForm }/> }
+          { this.volunteerFormVisible && <VolunteerForm closeLayerCB={ this.hideVolunteerForm } addVolunteerCB={ this.addVolunteer }/> }
         </Box>
         }
         <Box>

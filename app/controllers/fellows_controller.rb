@@ -8,11 +8,11 @@ class FellowsController < ApplicationController
   def create
     raise Users::AuthorizationFailedException if current_national_finance_head.blank?
 
-    form = Fellows::CreateForm.new(Donation.new)
+    form = Fellows::CreateForm.new(Fellow.new)
 
     if form.validate(params)
       form.save!(current_national_finance_head)
-      render json: { success: true, fellow: form.model }
+      @fellow = form.model
     else
       raise ValidationFailureException.new(form)
     end
