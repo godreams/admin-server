@@ -100,11 +100,8 @@ import AppStateService from 'services/AppStateService'
 
               <Menu size="small">
                 <Header align='end'>
-                  <Heading tag='h4' strong={ true } onClick={ this.showDonationsTable }>Donations</Heading>
+                  <Anchor onClick={ this.showDonationsTable }>Donations</Anchor>
                 </Header>
-
-                <Anchor href='#' className='active'>Pending</Anchor>
-                <Anchor href='#'>Approved</Anchor>
 
                 { this.props.appState.authorization.currentUserRole != 'Volunteer' &&
                 <Header align='end'>
