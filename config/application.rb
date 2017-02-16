@@ -31,6 +31,8 @@ module AdminServer
       config.autoload_paths << Rails.root.join("app/#{folder}")
     end
 
+    config.time_zone = 'New Delhi'
+
     # TODO: Extremely permissive CORS settings. These should be restricted to GoDreams (and development) sources.
     config.middleware.insert_before 0, Rack::Cors do
       allow do
