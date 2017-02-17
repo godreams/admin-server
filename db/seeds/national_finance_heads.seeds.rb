@@ -1,5 +1,3 @@
-require_relative 'helper'
-
 puts 'Seeding National Finance Head (production)'
 
 initial_user = User.create!(
