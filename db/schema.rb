@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201092407) do
+ActiveRecord::Schema.define(version: 20170217190344) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "approvals", force: :cascade do |t|
     t.integer  "donation_id"
@@ -18,8 +21,8 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.integer  "approver_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["approver_type", "approver_id"], name: "index_approvals_on_approver_type_and_approver_id"
-    t.index ["donation_id"], name: "index_approvals_on_donation_id"
+    t.index ["approver_type", "approver_id"], name: "index_approvals_on_approver_type_and_approver_id", using: :btree
+    t.index ["donation_id"], name: "index_approvals_on_donation_id", using: :btree
   end
 
   create_table "coaches", force: :cascade do |t|
@@ -27,8 +30,8 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.integer  "fellow_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["fellow_id"], name: "index_coaches_on_fellow_id"
-    t.index ["user_id"], name: "index_coaches_on_user_id"
+    t.index ["fellow_id"], name: "index_coaches_on_fellow_id", using: :btree
+    t.index ["user_id"], name: "index_coaches_on_user_id", using: :btree
   end
 
   create_table "donations", force: :cascade do |t|
@@ -39,9 +42,10 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.string   "pan"
     t.text     "address"
     t.integer  "volunteer_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["volunteer_id"], name: "index_donations_on_volunteer_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "tax_claim",    default: false
+    t.index ["volunteer_id"], name: "index_donations_on_volunteer_id", using: :btree
   end
 
   create_table "fellows", force: :cascade do |t|
@@ -49,15 +53,15 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.integer  "national_finance_head_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.index ["national_finance_head_id"], name: "index_fellows_on_national_finance_head_id"
-    t.index ["user_id"], name: "index_fellows_on_user_id"
+    t.index ["national_finance_head_id"], name: "index_fellows_on_national_finance_head_id", using: :btree
+    t.index ["user_id"], name: "index_fellows_on_user_id", using: :btree
   end
 
   create_table "national_finance_heads", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_national_finance_heads_on_user_id"
+    t.index ["user_id"], name: "index_national_finance_heads_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,8 +78,8 @@ ActiveRecord::Schema.define(version: 20170201092407) do
     t.integer  "coach_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["coach_id"], name: "index_volunteers_on_coach_id"
-    t.index ["user_id"], name: "index_volunteers_on_user_id"
+    t.index ["coach_id"], name: "index_volunteers_on_coach_id", using: :btree
+    t.index ["user_id"], name: "index_volunteers_on_user_id", using: :btree
   end
 
 end

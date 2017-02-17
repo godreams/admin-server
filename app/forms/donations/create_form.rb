@@ -4,8 +4,16 @@ module Donations
     property :email, validates: { presence: true, email: true }
     property :phone, validates: { presence: true, mobile_number: true }
     property :amount, validates: { presence: true }
-    property :pan, validates: { presence: true }
-    property :address, validates: { presence: true }
+    property :tax_claim
+    property :pan
+    property :address
+
+    validate :pan_required_if_tax_claimed
+
+    def pan_required_if_tax_claimed
+      return unless tax_claim
+      errors[:pan] << 'is required for tax claim' if pan.blank?
+    end
 
     def save!(volunteer)
       sync

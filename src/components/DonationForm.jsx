@@ -14,6 +14,7 @@ import ApiService from 'services/ApiService'
 import SpinningIcon from 'grommet/components/icons/Spinning'
 import Box from 'grommet/components/Box'
 import Status from 'grommet/components/icons/Status'
+import CheckBox from 'grommet/components/CheckBox'
 
 @inject('appState') @observer
 export default class DonationForm extends React.Component {
@@ -24,6 +25,7 @@ export default class DonationForm extends React.Component {
     this.onChange = this.onChange.bind(this)
     this.error = this.error.bind(this)
     this.errorMessage = this.errorMessage.bind(this)
+    this.toggleTaxClaim = this.toggleTaxClaim.bind(this)
     this.submit = this.submit.bind(this)
   }
 
@@ -33,6 +35,7 @@ export default class DonationForm extends React.Component {
     phone: null,
     amount: null,
     date: null,
+    tax_claim: false,
     pan: null,
     address: null
   }
@@ -42,7 +45,8 @@ export default class DonationForm extends React.Component {
     name: false,
     email: false,
     phone: false,
-    amount: false
+    amount: false,
+    pan: false
   }
   
   @observable formState = 'fresh'
@@ -66,6 +70,8 @@ export default class DonationForm extends React.Component {
       return this.emailErrorMessage
     } else if (field == 'amount') {
       return this.amountErrorMessage
+    } else if (field == 'pan') {
+      return this.panErrorMessage
     }
   }
 
@@ -92,13 +98,23 @@ export default class DonationForm extends React.Component {
     return hasAmountError ? 'needs to a positive number' : ''
   }
 
+  @computed get panErrorMessage () {
+    let hasPanError = this.donationDetails.tax_claim == true && !this.donationDetails.pan
+    return hasPanError ? 'is required for tax claim' : ''
+  }
+
   @computed get hasAnyError() {
-    return this.nameErrorMessage || this.emailErrorMessage || this.phoneErrorMessage || this.amountErrorMessage
+    return this.nameErrorMessage || this.emailErrorMessage || this.phoneErrorMessage || this.amountErrorMessage || this.panErrorMessage
   }
 
   onChange (event) {
     this.donationDetails[event.target.name] = event.target.value
     this.showErrors[event.target.name] = true
+  }
+
+  toggleTaxClaim () {
+    this.donationDetails.tax_claim = !this.donationDetails.tax_claim
+    console.log(this.donationDetails.tax_claim)
   }
 
   submit (event) {
@@ -149,7 +165,10 @@ export default class DonationForm extends React.Component {
         <FormField label='Amount' error={ this.error('amount') }>
           <NumberInput name='amount' onChange={ this.onChange }/>
         </FormField>
-        <FormField label='PAN'>
+        <FormField>
+          <CheckBox label='80G Claim' toggle={true} checked={this.donationDetails.tax_claim} onChange={ this.toggleTaxClaim }/>
+        </FormField>
+        <FormField label='PAN' error={ this.error('pan') }>
           <TextInput name='pan' onDOMChange={ this.onChange }/>
         </FormField>
         <FormField label='Address'>
