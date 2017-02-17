@@ -4,7 +4,7 @@
   "description": "## Development Setup",
   "engines": {
     "node": "6.9.2",
-    "yarn": "0.19.1"
+    "yarn": "0.20.3"
   },
   "main": "app.js",
   "dependencies": {
