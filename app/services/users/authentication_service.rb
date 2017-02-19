@@ -6,17 +6,13 @@ module Users
     end
 
     def auth_info
-      [jwt, user&.name, user_role]
+      [jwt, user&.name, user&.roles_array]
     end
 
     private
 
     def jwt
       JsonWebTokenService.encode(user_id: user.id) if user
-    end
-
-    def user_role
-      (user.national_finance_head || user.fellow || user.coach || user.volunteer).class.name if user
     end
 
     def user

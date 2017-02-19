@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
   def show
-    @user_role = current_user_role
+    @user = current_user
   end
 end

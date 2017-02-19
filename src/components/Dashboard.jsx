@@ -55,15 +55,15 @@ import AppStateService from 'services/AppStateService'
   }
 
   hasVolunteers () {
-    return ['Coach', 'Fellow', 'NationalFinanceHead'].includes(this.props.appState.authorization.currentUserRole)
+    return SessionService.hasAnyRole(this, ['Coach', 'Fellow', 'NationalFinanceHead'])
   }
 
   hasCoaches () {
-    return ['Fellow', 'NationalFinanceHead'].includes(this.props.appState.authorization.currentUserRole)
+    return SessionService.hasAnyRole(this, ['Fellow', 'NationalFinanceHead'])
   }
 
   hasFellows () {
-    return this.props.appState.authorization.currentUserRole == 'NationalFinanceHead'
+    return SessionService.hasRole(this, 'NationalFinanceHead')
   }
 
   showDonationsTable () {
@@ -103,7 +103,7 @@ import AppStateService from 'services/AppStateService'
                   <Anchor onClick={ this.showDonationsTable }>Donations</Anchor>
                 </Header>
 
-                { this.props.appState.authorization.currentUserRole != 'Volunteer' &&
+                { SessionService.hasRole(this, 'Volunteer') &&
                 <Header align='end'>
                   <Heading tag='h4' strong={ true }>Users</Heading>
                 </Header>
@@ -140,7 +140,6 @@ import AppStateService from 'services/AppStateService'
               <Title>Guardians donorApp</Title>
             </Header>
             <h3>Welcome {this.props.appState.authorization.currentUserName}</h3>
-            <em>(You are logged in as a { this.props.appState.authorization.currentUserRole })</em>
           </Box>
           <Box>
             { this.visibleTable === 'donations' &&

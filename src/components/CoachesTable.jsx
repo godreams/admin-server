@@ -9,6 +9,8 @@ import ApiService from 'services/ApiService'
 import Button from 'grommet/components/Button'
 import CoachForm from 'components/CoachForm'
 
+import SessionService from 'services/SessionService'
+
 @inject('appState') @observer
 @observer export default class CoachesTable extends React.Component {
   @observable coaches = null
@@ -67,7 +69,7 @@ import CoachForm from 'components/CoachForm'
   render () {
     return (
       <Box direction='column'>
-        { this.props.appState.authorization.currentUserRole == 'Fellow' &&
+        { SessionService.hasRole(this, 'Fellow') &&
         <Box align='center' pad='medium'>
           <Button label='Add Coach' primary={ true } onClick={ this.showCoachForm }/>
           { this.coachFormVisible && <CoachForm closeLayerCB={ this.hideCoachForm } addCoachCB={ this.addCoach }/> }

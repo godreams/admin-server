@@ -9,6 +9,8 @@ import ApiService from 'services/ApiService'
 import Button from 'grommet/components/Button'
 import FellowForm from 'components/FellowForm'
 
+import SessionService from 'services/SessionService'
+
 @inject('appState') @observer
 @observer export default class FellowsTable extends React.Component {
   @observable fellows = null
@@ -67,7 +69,7 @@ import FellowForm from 'components/FellowForm'
   render () {
     return (
       <Box direction='column'>
-        { this.props.appState.authorization.currentUserRole == 'NationalFinanceHead' &&
+        { SessionService.hasRole(this, 'NationalFinanceHead') &&
         <Box align='center' pad='medium'>
           <Button label='Add Fellow' primary={ true } onClick={ this.showFellowForm }/>
           { this.fellowFormVisible && <FellowForm closeLayerCB={ this.hideFellowForm } addFellowCB={ this.addFellow }/> }

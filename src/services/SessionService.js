@@ -39,7 +39,24 @@ export default class SessionService {
     that.props.appState.authorization.token = response.auth_token
     that.props.appState.authorization.loginFailureMessage = null
     that.props.appState.authorization.currentUserName = response.name
-    that.props.appState.authorization.currentUserRole = response.role
+
+    for (let role of response.roles) {
+      that.props.appState.authorization.currentUserRoles.push(role)
+    }
+  }
+
+  static hasRole (that, role) {
+    return (that.props.appState.authorization.currentUserRoles.indexOf(role) >= 0)
+  }
+
+  static hasAnyRole (that, roles) {
+    for (let role of roles) {
+      if (that.props.appState.authorization.currentUserRoles.indexOf(role) >= 0) {
+        return true
+      }
+    }
+
+    return false
   }
 
   static destroy() {

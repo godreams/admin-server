@@ -96,7 +96,7 @@ import ApiService from 'services/ApiService'
   render () {
     return (
       <Box direction='column'>
-        { this.props.appState.authorization.currentUserRole == 'Volunteer' &&
+        { SessionService.hasRole(this, 'Volunteer') &&
         <Box align='center' pad='medium'>
           <Button label='Add Donation' primary={ true } onClick={ this.showDonationForm }/>
           { this.donationFormVisible && <DonationForm closeLayerCB={ this.hideDonationForm } addDonationCB={ this.addDonation }/> }

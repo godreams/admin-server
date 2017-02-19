@@ -9,6 +9,8 @@ import ApiService from 'services/ApiService'
 import Button from 'grommet/components/Button'
 import VolunteerForm from 'components/VolunteerForm'
 
+import SessionService from 'services/SessionService'
+
 @inject('appState') @observer
 @observer export default class VolunteersTable extends React.Component {
   @observable volunteers = null
@@ -67,7 +69,7 @@ import VolunteerForm from 'components/VolunteerForm'
   render () {
     return (
       <Box direction='column'>
-        { this.props.appState.authorization.currentUserRole == 'Coach' &&
+        { SessionService.hasRole(this, 'Coach') &&
         <Box align='center' pad='medium'>
           <Button label='Add Volunteer' primary={ true } onClick={ this.showVolunteerForm }/>
           { this.volunteerFormVisible && <VolunteerForm closeLayerCB={ this.hideVolunteerForm } addVolunteerCB={ this.addVolunteer }/> }
