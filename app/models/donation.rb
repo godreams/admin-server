@@ -2,7 +2,10 @@ class Donation < ApplicationRecord
   belongs_to :volunteer
   has_many :approvals
 
-  validates_presence_of :name, :email, :phone, :amount, :volunteer
+  validates :name, presence: true
+  validates :email, presence: true
+  validates :phone, presence: true
+  validates :amount, presence: true
 
   def approved?
     approvals.present?

@@ -6,7 +6,9 @@ class User < ApplicationRecord
   has_one :fellow
   has_one :national_finance_head
 
-  validates_presence_of :name, :email, :phone
+  validates :name, presence: true
+  validates :email, presence: true
+  validates :phone, presence: true
 
   def approvals
     fellow.approvals.or(national_finance_head.approvals)
