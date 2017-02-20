@@ -158,7 +158,7 @@ import AppStateService from 'services/AppStateService'
           </Sidebar>
 
           <Box direction='column'>
-          <Box colorIndex='neutral-2' justify='center' align='center' pad='medium'>
+          <Box colorIndex='warning' justify='center' align='center' pad='medium'>
             <h3>Welcome {this.props.appState.authorization.currentUserName}</h3>
           </Box>
           <Box>
