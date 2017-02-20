@@ -11,4 +11,11 @@ export default class AppStateService {
     window.localStorage.removeItem('authorizationToken')
     that.props.appState.authorization.token = null
   }
+
+  static loadDimensions (that) {
+    that.props.appState.dimensions = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
+  }
 }

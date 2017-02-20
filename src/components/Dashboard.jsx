@@ -1,6 +1,6 @@
 import React from 'react'
 import {observer, inject} from 'mobx-react'
-import {observable} from 'mobx'
+import {observable, computed} from 'mobx'
 
 import App from 'grommet/components/App'
 import Header from 'grommet/components/Header'
@@ -12,6 +12,7 @@ import Footer from 'grommet/components/Footer'
 import Split from 'grommet/components/Split'
 import Box from 'grommet/components/Box'
 import UserIcon from 'grommet/components/icons/base/User'
+import MenuIcon from 'grommet/components/icons/base/Menu'
 import Heading from 'grommet/components/Heading'
 import DonationsTable from 'components/DonationsTable'
 import VolunteersTable from 'components/VolunteersTable'
@@ -34,10 +35,15 @@ import AppStateService from 'services/AppStateService'
     this.showVolunteersTable = this.showVolunteersTable.bind(this)
     this.showCoachesTable = this.showCoachesTable.bind(this)
     this.showFellowsTable = this.showFellowsTable.bind(this)
+    this.updateDimensions = this.updateDimensions.bind(this)
   }
 
   // show the donations table by default
   @observable visibleTable = 'donations'
+
+  @computed get isLargeScreen () {
+    return this.props.appState.dimensions.width > 720;
+  }
 
   componentWillMount () {
     if (SessionService.isAuthorized(this)) {
@@ -47,6 +53,16 @@ import AppStateService from 'services/AppStateService'
     } else {
       this.props.router.push('/login')
     }
+    this.updateDimensions()
+    window.addEventListener('resize', this.updateDimensions)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.updateDimensions)
+  }
+
+  updateDimensions () {
+    AppStateService.loadDimensions(this)
   }
 
   logout () {
@@ -89,16 +105,18 @@ import AppStateService from 'services/AppStateService'
   render () {
     return (
       <App centered={false}>
-        <Split flex='right'>
-          <Sidebar colorIndex='neutral-1'>
+        <Split flex='right' showOnResponsive='both'>
+          <Sidebar colorIndex='neutral-1' full={ this.isLargeScreen }>
             <Box pad={ {horizontal: 'medium'} }>
+              { this.isLargeScreen &&
               <Header>
                 <Title>
                   Guardians donorApp
                 </Title>
               </Header>
+              }
 
-              <Menu size="small">
+              <Menu size="small" inline={true} responsive={true} icon={<MenuIcon />}>
                 <Header align='end'>
                   <Anchor onClick={ this.showDonationsTable }>Donations</Anchor>
                 </Header>
@@ -120,10 +138,14 @@ import AppStateService from 'services/AppStateService'
                 { this.hasFellows() &&
                 <Anchor onClick={ this.showFellowsTable }>Fellows</Anchor>
                 }
+                { !this.isLargeScreen &&
+                <Anchor onClick={this.logout}>Logout</Anchor>
+                }
 
               </Menu>
             </Box>
 
+            { this.isLargeScreen &&
             <Footer pad={{horizontal: 'medium', vertical: 'small'}}>
               <Menu icon={<UserIcon />} dropAlign={{bottom: 'bottom'}} colorIndex="neutral-1-a">
                 <Box pad="medium">
@@ -132,13 +154,11 @@ import AppStateService from 'services/AppStateService'
                 <Anchor href="#" onClick={this.logout} label="Logout" />
               </Menu>
             </Footer>
+            }
           </Sidebar>
 
           <Box direction='column'>
           <Box colorIndex='neutral-2' justify='center' align='center' pad='medium'>
-            <Header direction='row' justify='between' pad={{horizontal: 'medium'}}>
-              <Title>Guardians donorApp</Title>
-            </Header>
             <h3>Welcome {this.props.appState.authorization.currentUserName}</h3>
           </Box>
           <Box>

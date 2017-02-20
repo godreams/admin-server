@@ -13,6 +13,10 @@ const appState = observable({
     currentUserName: null,
     currentUserRoles: [],
     random: 'random'
+  },
+  dimensions: {
+    width: null,
+    height: null
   }
 })
 
