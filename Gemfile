@@ -49,6 +49,9 @@ gem 'sidekiq'
 # Official integration library for using Rails and ActionMailer with the Postmark HTTP API.
 gem 'postmark-rails'
 
+# Exception tracking and logging from Ruby to Rollbar.
+gem 'rollbar'
+
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails' # RSpec for Rails-3+ http://relishapp.com/rspec/rspec-rails
