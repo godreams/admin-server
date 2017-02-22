@@ -58,7 +58,7 @@ export default class Loader extends React.Component {
       }).catch(() => {
         that.progress = 50
         that.status = 'error'
-        SessionService.destroy()
+        SessionService.destroy(that)
       })
     } else {
       this.props.router.push('/login')

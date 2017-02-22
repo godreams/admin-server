@@ -66,7 +66,7 @@ import AppStateService from 'services/AppStateService'
   }
 
   logout () {
-    AppStateService.unloadState(this)
+    SessionService.destroy(this)
     this.props.router.push('/')
   }
 

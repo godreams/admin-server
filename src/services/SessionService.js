@@ -6,7 +6,7 @@ export default class SessionService {
     return typeof(window.localStorage.authorizationToken) === 'string'
   }
 
-  static isAuthorized(that) {
+  static isAuthorized (that) {
     return (typeof(that.props.appState.authorization.token) === 'string')
   }
 
@@ -59,7 +59,17 @@ export default class SessionService {
     return false
   }
 
-  static destroy() {
+  // Destroy session.
+  static destroy (that) {
+    // Get rid of stored token.
     window.localStorage.removeItem('authorizationToken')
+
+    // If there is an authorized session, destroy state values.
+    if (this.isAuthorized(that)) {
+      that.props.appState.authorization.token = null
+      that.props.appState.authorization.loginFailureMessage = null
+      that.props.appState.authorization.currentUserName = null
+      that.props.appState.authorization.currentUserRoles.length = 0
+    }
   }
 }
