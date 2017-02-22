@@ -6,6 +6,7 @@ export default class SessionService {
     return typeof(window.localStorage.authorizationToken) === 'string'
   }
 
+  // Returns true if user is already logged in.
   static isAuthorized (that) {
     return (typeof(that.props.appState.authorization.token) === 'string')
   }
@@ -30,8 +31,9 @@ export default class SessionService {
     }
   }
 
+  // Store session data in localStorage and in state.
   static store (response, that) {
-    // Store the token in localstorage if it isn't there.
+    // Store the token in localStorage if it isn't there.
     if (typeof(window.localStorage.authorizationToken) === 'undefined') {
       window.localStorage.authorizationToken = response.auth_token
     }
@@ -45,10 +47,12 @@ export default class SessionService {
     }
   }
 
+  // Check if current user has a specific role.
   static hasRole (that, role) {
     return (that.props.appState.authorization.currentUserRoles.indexOf(role) >= 0)
   }
 
+  // Check if current user has one among an array of possible roles.
   static hasAnyRole (that, roles) {
     for (let role of roles) {
       if (that.props.appState.authorization.currentUserRoles.indexOf(role) >= 0) {
