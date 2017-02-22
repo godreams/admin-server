@@ -1,10 +1,10 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_one :volunteer
-  has_one :coach
-  has_one :fellow
-  has_one :national_finance_head
+  has_one :volunteer, dependent: :destroy
+  has_one :coach, dependent: :destroy
+  has_one :fellow, dependent: :destroy
+  has_one :national_finance_head, dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true
