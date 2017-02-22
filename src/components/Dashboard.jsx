@@ -121,7 +121,7 @@ import AppStateService from 'services/AppStateService'
                   <Anchor onClick={ this.showDonationsTable }>Donations</Anchor>
                 </Header>
 
-                { SessionService.hasRole(this, 'Volunteer') &&
+                { SessionService.hasAnyRole(this, ['Coach', 'Fellow', 'NationalFinanceHead']) &&
                 <Header align='end'>
                   <Heading tag='h4' strong={ true }>Users</Heading>
                 </Header>
