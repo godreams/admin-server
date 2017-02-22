@@ -111,7 +111,7 @@ import AppStateService from 'services/AppStateService'
               { this.isLargeScreen &&
               <Header>
                 <Title>
-                  Guardians donorApp
+                  Guardians DonorApp
                 </Title>
               </Header>
               }

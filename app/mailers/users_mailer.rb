@@ -3,6 +3,6 @@ class UsersMailer < ApplicationMailer
   def send_password(user, password)
     @user = user
     @password = password
-    mail(subject: 'Welcome to GoDreams donorApp', to: @user.email)
+    mail(subject: 'Welcome to GoDreams DonorApp', to: @user.email)
   end
 end
