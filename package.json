@@ -17,6 +17,7 @@
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.26.1",
     "grommet": "^1.2.1",
+    "html-webpack-plugin": "^2.28.0",
     "mobx": "^3.0.2",
     "mobx-react": "^4.1.0",
     "node-sass": "^4.3.0",

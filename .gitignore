@@ -29,8 +29,9 @@
 # Ignore all .env files.
 .env*
 
-# Ignore bundle.js.
+# Ignore generated files.
 public/bundle.js
+public/index.html
 
 # Ignore locally installed modules.
 node_modules/

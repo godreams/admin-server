@@ -1,4 +1,5 @@
 var path = require('path')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, 'public')
 var APP_DIR = path.resolve(__dirname, 'src')
@@ -40,7 +41,11 @@ var config = {
         ]
       }
     ]
-  }
+  },
+  plugins: [new HtmlWebpackPlugin({
+    template: 'src/templates/index.html',
+    hash: true
+  })]
 }
 
 module.exports = config
