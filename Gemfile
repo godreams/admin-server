@@ -49,6 +49,9 @@ gem 'sidekiq'
 # Official integration library for using Rails and ActionMailer with the Postmark HTTP API.
 gem 'postmark-rails'
 
+# Used to generate dynmaic portions of agreement pdfs
+gem 'prawn'
+
 # Exception tracking and logging from Ruby to Rollbar.
 gem 'rollbar'
 

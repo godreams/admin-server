@@ -27,7 +27,7 @@ module AdminServer
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    %w(services exceptions).each do |folder|
+    %w(services exceptions pdfs).each do |folder|
       config.autoload_paths << Rails.root.join("app/#{folder}")
     end
 
