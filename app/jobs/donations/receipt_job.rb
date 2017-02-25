@@ -1,5 +1,5 @@
 module Donations
-  class ReceiptJob
+  class ReceiptJob < ApplicationJob
     def perform(donation)
       # Send the receipt via email.
       DonationsMailer.receipt(donation.id).deliver_now
