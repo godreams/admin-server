@@ -34,10 +34,14 @@ module Donations
       draw_text @donation.email, at: [mm2pt(35), mm2pt(190)]
 
       # Address.
-      text_box @donation.address, at: [mm2pt(34), mm2pt(180)], height: mm2pt(15), width: mm2pt(160), overflow: :shrink_to_fit
+      if @donation.address.present?
+        text_box @donation.address, at: [mm2pt(34), mm2pt(180)], height: mm2pt(15), width: mm2pt(160), overflow: :shrink_to_fit
+      end
 
       # PAN.
-      draw_text @donation.pan, at: [mm2pt(46), mm2pt(157)] if @donation.pan.present?
+      if @donation.pan.present?
+        draw_text @donation.pan, at: [mm2pt(46), mm2pt(157)] if @donation.pan.present?
+      end
     end
 
     def add_donation_details
