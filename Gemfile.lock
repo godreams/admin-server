@@ -95,6 +95,9 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
+    numbers_and_words (0.10.5)
+      activesupport
+      i18n
     pdf-core (0.6.1)
     pg (0.19.0)
     postmark (1.10.0)
@@ -218,6 +221,7 @@ DEPENDENCIES
   jwt
   letter_opener
   listen (~> 3.0.5)
+  numbers_and_words
   pg
   postmark-rails
   prawn
