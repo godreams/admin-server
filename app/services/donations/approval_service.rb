@@ -9,7 +9,7 @@ module Donations
       raise Donations::ApproveNotAllowedException if approver.blank?
       Approval.create!(donation: @donation, approver: approver)
 
-      if approver.class == 'NationalFinanceHead'
+      if approver.is_a?(NationalFinanceHead)
         Donations::ReceiptJob.perform_later(@donation)
       end
     end
