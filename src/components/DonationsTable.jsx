@@ -28,6 +28,7 @@ import ApiService from 'services/ApiService'
     this.approvalLink = this.approvalLink.bind(this)
     this.approve = this.approve.bind(this)
     this.markApproval = this.markApproval.bind(this)
+    this.downloadReceipt = this.downloadReceipt.bind(this)
   }
 
   componentDidMount () {
@@ -56,7 +57,10 @@ import ApiService from 'services/ApiService'
         <td>{donation.amount}</td>
         <td>{donation.created_at}</td>
         <td className="secondary">{donation.status}</td>
-        <td>{donation.approvable ? this.approvalLink(donation) : ''}</td>
+        <td>
+          {donation.approvable ? this.approvalLink(donation) : ''}
+          {donation.approved ? this.receiptLink(donation) : ''}
+        </td>
       </TableRow>
     )
   }
@@ -77,6 +81,21 @@ import ApiService from 'services/ApiService'
     return (
       <a onClick={this.approve.bind(null, donation.id)}>Approve</a>
     )
+  }
+
+  receiptLink (donation) {
+    return (
+      <a onClick={this.downloadReceipt.bind(null, donation.id)}>Download Receipt</a>
+    )
+  }
+
+  downloadReceipt (donationId) {
+    let apiService = new ApiService(this.props.appState.authorization.token)
+
+    apiService.fetch('donations/' + donationId + '/receipt').then(response => {
+      let pdfAsDataUri = "data:application/pdf;base64,"+response.receipt.pdf_base64;
+      window.open(pdfAsDataUri);
+    })
   }
 
   approve (donationId) {

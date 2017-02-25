@@ -44,4 +44,11 @@ class DonationsController < ApplicationController
     Donations::ApprovalService.new(donation).approve(approver)
     @donation = donation.reload
   end
+
+  # GET /donations/:id/receipt
+  def receipt
+    @donation = Donation.find(params[:id])
+    raise Donations::ApprovalIncompleteException unless @donation.final_approval.present?
+    @receipt_pdf = Base64.encode64(Donations::ReceiptPdf.new(@donation).build.render)
+  end
 end

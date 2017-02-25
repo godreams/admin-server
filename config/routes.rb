@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :donations do
       member do
         post 'approve'
+        get 'receipt'
       end
     end
 
