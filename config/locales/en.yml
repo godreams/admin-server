@@ -30,3 +30,4 @@ en:
   sms_service:
     templates:
       donation_acknowledgement: "%{name}, thank you for your donation of Rs. %{amount}. We will send you the E-Receipt containing the tax exemption certificate within 45 days."
+      donation_receipt: "Dear %{name}, hope you are doing good. As promised, your e-receipt has been emailed to you at %{email}. Contact us at receipts@godreams.org for any queries - Guardians of Dreams Foundation."
