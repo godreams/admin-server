@@ -1,14 +1,15 @@
 module Fellows
   class CreateForm < Reform::Form
-    property :name, virtual: true, validates: { presence: true }
-    property :email, virtual: true, validates: { presence: true, email: true }
-    property :phone, virtual: true, validates: { presence: true, mobile_number: true }
+    property :name, validates: { presence: true }
+    property :email, validates: { presence: true, email: true }
+    property :phone, validates: { presence: true, mobile_number: true }
 
-    def save!(national_finance_head)
+    validates_uniqueness_of :email
+
+    def save(national_finance_head)
       user = Users::CreateService.create(email: email, phone: phone, name: name)
-      model.user = user
-      model.national_finance_head = national_finance_head
-      model.save!
+      user.create_fellow!(national_finance_head: national_finance_head)
+      user.fellow
     end
   end
 end

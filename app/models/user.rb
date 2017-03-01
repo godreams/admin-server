@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_one :national_finance_head, dependent: :destroy
 
   validates :name, presence: true
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :phone, presence: true
 
   def approvals

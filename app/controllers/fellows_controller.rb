@@ -8,11 +8,10 @@ class FellowsController < ApplicationController
   def create
     raise Users::AuthorizationFailedException if current_national_finance_head.blank?
 
-    form = Fellows::CreateForm.new(Fellow.new)
+    form = Fellows::CreateForm.new(User.new)
 
     if form.validate(params)
-      form.save!(current_national_finance_head)
-      @fellow = form.model
+      @fellow = form.save(current_national_finance_head)
     else
       raise ValidationFailureException.new(form)
     end
