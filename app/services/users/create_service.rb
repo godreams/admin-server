@@ -13,5 +13,11 @@ module Users
 
       user
     end
+
+    def self.find_or_create(attributes)
+      user = User.with_email(attributes[:email])
+      return user if user.present?
+      create(attributes)
+    end
   end
 end
