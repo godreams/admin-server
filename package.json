@@ -32,15 +32,13 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "mobx-react-devtools": "^4.2.11",
-    "standard": "^8.6.0",
-    "webpack-dev-server": "^1.16.2"
+    "standard": "^8.6.0"
   },
   "scripts": {
     "fix": "standard --fix",
     "test": "standard",
-    "dev": "webpack-dev-server --port 3000 --content-base public/",
+    "dev": "webpack --watch",
     "build": "webpack -p",
-    "start": "webpack-dev-server --progress --profile --colors",
     "heroku-postbuild": "npm rebuild node-sass && yarn run build"
   },
   "author": "Hari Gopal <mail@harigopal.in>",
