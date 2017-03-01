@@ -19,6 +19,6 @@ class User < ApplicationRecord
       if role.present?
         role.class.name
       end
-    end
+    end - [nil]
   end
 end
