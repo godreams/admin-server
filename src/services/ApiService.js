@@ -39,6 +39,10 @@ export default class ApiService {
     return this.fetch(path, 'POST', body)
   }
 
+  get (path, body) {
+    return this.fetch(path, 'GET', body)
+  }
+
   fullUrl (path) {
     return [this.baseUrl, path].join('/')
   }

@@ -9,4 +9,9 @@ export default class UserService {
     let apiService = new ApiService(this.token)
     return apiService.fetch('user')
   }
+
+  find (email) {
+    let apiService = new ApiService(this.token)
+    return apiService.get('users/find?email=' + email)
+  }
 }

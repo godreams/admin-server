@@ -21,4 +21,8 @@ class User < ApplicationRecord
       end
     end - [nil]
   end
+
+  def self.with_email(email)
+    where('lower(email) = ?', email.downcase).first
+  end
 end

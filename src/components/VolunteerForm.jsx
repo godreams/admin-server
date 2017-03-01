@@ -1,6 +1,7 @@
 import React from 'react'
 import {observer, inject} from 'mobx-react'
 import {observable, computed} from 'mobx'
+
 import Layer from 'grommet/components/Layer'
 import Form from 'grommet/components/Form'
 import Header from 'grommet/components/Header'
@@ -9,10 +10,12 @@ import FormField from 'grommet/components/FormField'
 import TextInput from 'grommet/components/TextInput'
 import Footer from 'grommet/components/Footer'
 import Button from 'grommet/components/Button'
-import ApiService from 'services/ApiService'
 import SpinningIcon from 'grommet/components/icons/Spinning'
 import Box from 'grommet/components/Box'
 import Status from 'grommet/components/icons/Status'
+
+import UserService from 'services/UserService'
+import ApiService from 'services/ApiService'
 
 @inject('appState') @observer
 export default class VolunteerForm extends React.Component {
@@ -41,13 +44,15 @@ export default class VolunteerForm extends React.Component {
   }
 
   @observable formState = 'fresh'
+  @observable emailValidating = false
+  @observable emailDuplicate = false
 
   error (field) {
     let showError = this.showErrors.base || this.showErrors[field]
     return showError ? this.errorMessage(field) : ''
   }
 
-  errorMessage(field) {
+  errorMessage (field) {
     if (field == 'name') {
       return this.nameErrorMessage
     } else if (field == 'phone') {
@@ -63,6 +68,10 @@ export default class VolunteerForm extends React.Component {
   }
 
   @computed get emailErrorMessage () {
+    if (this.emailDuplicate) {
+      return 'is already a Volunteer'
+    }
+
     // Reference for regex: http://www.w3resource.com/javascript/form/email-validation.php
     const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
     let hasEmailError = !EMAIL_REGEX.test(this.volunteerDetails.email)
@@ -75,7 +84,7 @@ export default class VolunteerForm extends React.Component {
     return hasPhoneError ? 'is not a 10-digit mobile number' : ''
   }
 
-  @computed get hasAnyError() {
+  @computed get hasAnyError () {
     return this.nameErrorMessage || this.emailErrorMessage || this.phoneErrorMessage
   }
 
@@ -85,6 +94,11 @@ export default class VolunteerForm extends React.Component {
 
   updateDetail (key, value) {
     this.volunteerDetails[key] = value
+
+    // Clear the duplicate email error if email is edited.
+    if (key === 'email') {
+      this.emailDuplicate = false
+    }
   }
 
   onChange (event) {
@@ -94,19 +108,37 @@ export default class VolunteerForm extends React.Component {
 
   submit (event) {
     event.preventDefault()
-    if(this.hasAnyError) {
+
+    if (this.hasAnyError) {
       this.showErrors.base = true
     } else {
-      this.formState = 'submitting'
-      let form = new FormData()
-      Object.keys(this.volunteerDetails).forEach(key => form.append(key, this.volunteerDetails[key]));
+      let userService = new UserService(this.props.appState.authorization.token)
+      this.emailValidating = true
 
-      let apiService = new ApiService(this.props.appState.authorization.token)
-      apiService.post('volunteers', form).then(response => {
-        this.formState = 'complete'
-        this.props.addVolunteerCB(response.volunteer)
+      userService.find(this.volunteerDetails.email).then(response => {
+        if (response.user.roles.includes('Volunteer')) {
+          this.emailDuplicate = true
+        } else {
+          this.submitForm()
+        }
+      }).catch(() => {
+        this.submitForm()
+      }).then(() => {
+        this.emailValidating = false
       })
     }
+  }
+
+  submitForm () {
+    this.formState = 'submitting'
+    let form = new FormData()
+    Object.keys(this.volunteerDetails).forEach(key => form.append(key, this.volunteerDetails[key]));
+
+    let apiService = new ApiService(this.props.appState.authorization.token)
+    apiService.post('volunteers', form).then(response => {
+      this.formState = 'complete'
+      this.props.addVolunteerCB(response.volunteer)
+    })
   }
 
   render () {
@@ -137,8 +169,14 @@ export default class VolunteerForm extends React.Component {
           <FormField label='Phone' error={ this.error('phone') }>
             <TextInput name='phone' onDOMChange={ this.onChange }/>
           </FormField>
+
           <Footer pad={{'vertical': 'medium'}}>
+            { this.emailValidating &&
+            <div>Validating email...</div>
+            }
+            { !this.emailValidating &&
             <Button label='Add' type='submit' onClick={this.submit}/>
+            }
           </Footer>
         </Form>
         }
