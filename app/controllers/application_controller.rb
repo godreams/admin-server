@@ -1,5 +1,7 @@
-class ApplicationController < ActionController::API
-  before_action :authenticate_request
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :reset_session
+
+  # before_action :authenticate_request
 
   helper_method :current_user, :current_user_role
 

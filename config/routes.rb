@@ -31,5 +31,5 @@ Rails.application.routes.draw do
     resources :fellows, only: %w(index create)
   end
 
-  match '*path', to: 'client#index', via: :all
+  root to: 'users#hello'
 end
