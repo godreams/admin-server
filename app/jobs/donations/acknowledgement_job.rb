@@ -2,7 +2,7 @@ module Donations
   class AcknowledgementJob < ApplicationJob
     def perform(donation)
       # Send an SMS.
-      sms_service = SmsService.new(donation.phone, :donation_acknowledgement, name: donation.name, amount: donation.amount)
+      sms_service = SmsService.new(donation.phone, :donation_acknowledgement, name: donation.name, amount: donation.amount, email: donation.email)
       sms_service.execute
 
       # Send an email.

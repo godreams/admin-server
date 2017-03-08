@@ -29,5 +29,5 @@ en:
         national_finance_head: 'Approval Complete'
   sms_service:
     templates:
-      donation_acknowledgement: "%{name}, thank you for your donation of Rs. %{amount}. We will send you the E-Receipt containing the tax exemption certificate within 45 days."
+      donation_acknowledgement: "Dear %{name}, thank you for your contribution of INR %{amount}. We have sent an acknowledgment email to %{email}. Contact us at receipts@godreams.org for any queries - Guardians of Dreams Foundation."
       donation_receipt: "Dear %{name}, hope you are doing good. As promised, your e-receipt has been emailed to you at %{email}. Contact us at receipts@godreams.org for any queries - Guardians of Dreams Foundation."

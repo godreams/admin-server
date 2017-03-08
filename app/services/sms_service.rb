@@ -1,7 +1,7 @@
 class SmsService
   include Translatable
 
-  BASE_URL = -'https://smsapi.24x7sms.com/api_2.0/SendSMS.aspx'
+  BASE_URL = -'http://sms.digimiles.in/bulksms/bulksms'
 
   def initialize(mobile_number, template, variables)
     @mobile_number = mobile_number
@@ -10,8 +10,9 @@ class SmsService
   end
 
   def execute
-    return unless Rails.env.production?
+    # return unless Rails.env.production?
 
+    binding.pry
     uri = URI(BASE_URL)
     uri.query = URI.encode_www_form(params)
 
@@ -19,7 +20,13 @@ class SmsService
     response = Net::HTTP.get_response(uri)
 
     if response.is_a?(Net::HTTPSuccess)
-      Rails.logger.info("Successfully sent SMS (#{@template}) to #{@mobile_number}. Response from SMS Service: #{response.body}")
+      response_code = response.body.to_i
+
+      if response_code == 1701
+        Rails.logger.info("Successfully sent SMS (#{@template}) to #{@mobile_number}.")
+      else
+        Rails.logger.error("Failed to send SMS to #{@mobile_number}. Error code: #{response_code}")
+      end
     else
       Rails.logger.error("Failed to send SMS to #{@mobile_number}. Template: #{@template}. Variables: #{@variables.to_json}")
     end
@@ -29,11 +36,13 @@ class SmsService
 
   def params
     {
-      SenderID: 'GoDrmC',
-      ServiceName: 'TEMPLATE_BASED',
-      MobileNo: @mobile_number,
-      APIKEY: Rails.application.secrets.sms_service_api_key,
-      Message: message,
+      username: Rails.application.secrets.sms_service_username,
+      password: Rails.application.secrets.sms_service_password,
+      type: 0,
+      dlr: 1,
+      destination: @mobile_number,
+      source: 'GODRMS',
+      message: message
     }
   end
 
