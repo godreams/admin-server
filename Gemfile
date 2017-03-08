@@ -75,6 +75,11 @@ gem 'numbers_and_words'
 # Bootstrap 4 Ruby Gem for Rails / Sprockets and Compass.
 gem 'bootstrap', '~> 4.0.0.alpha6'
 
+source 'https://rails-assets.org' do
+  # A positioning engine to make overlays, tooltips and dropdowns better. Required by Bootstrap. https://github.com/HubSpot/tether
+  gem 'rails-assets-tether', '>= 1.3.3'
+end
+
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails' # RSpec for Rails-3+ http://relishapp.com/rspec/rspec-rails
