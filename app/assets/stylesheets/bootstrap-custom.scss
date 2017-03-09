@@ -1,0 +1,8 @@
+// This is a fix for https://github.com/twbs/bootstrap/issues/21590
+// TODO: This fix should be removed when Bootstrap v4 Beta 1 is released.
+@include media-breakpoint-down(xs) {
+  .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
