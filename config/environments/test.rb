@@ -19,7 +19,7 @@ Rails.application.configure do
   }
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
 
   # Raise exceptions instead of rendering exception templates.
@@ -39,4 +39,10 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Set default URL base for mailers.
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 end
+
+# Set application's default URL base using same config as mailer.
+Rails.application.default_url_options = Rails.application.config.action_mailer.default_url_options

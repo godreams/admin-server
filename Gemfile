@@ -78,6 +78,9 @@ gem 'bootstrap', '~> 4.0.0.alpha6'
 # Font-Awesome Sass gem for use in Ruby/Rails projects. https://github.com/FortAwesome/font-awesome-sass
 gem 'font-awesome-sass', '~> 4.7.0'
 
+# Flexible authentication solution for Rails with Warden. # https://github.com/plataformatec/devise
+gem 'devise'
+
 source 'https://rails-assets.org' do
   # A positioning engine to make overlays, tooltips and dropdowns better. Required by Bootstrap. https://github.com/HubSpot/tether
   gem 'rails-assets-tether', '>= 1.3.3'

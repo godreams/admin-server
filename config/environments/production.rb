@@ -89,7 +89,7 @@ Rails.application.configure do
   config.action_mailer.postmark_settings = { :api_token => ENV['POSTMARK_API_TOKEN'] }
 
   # Set default URL base for mailers.
-  config.action_mailer.default_url_options = { host: 'http://godreams.org' }
+  config.action_mailer.default_url_options = { host: 'https://godreams-admin-server.herokuapp.com' }
 end
 
 # Set application's default URL base using same config as mailer.
