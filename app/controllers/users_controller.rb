@@ -8,8 +8,4 @@ class UsersController < ApplicationController
     @user = User.with_email(params[:email])
     raise Users::NotFoundException if @user.blank?
   end
-
-  def hello
-
-  end
 end

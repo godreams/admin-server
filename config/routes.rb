@@ -31,5 +31,5 @@ Rails.application.routes.draw do
     resources :fellows, only: %w(index create)
   end
 
-  root to: 'users#hello'
+  root to: 'home#index'
 end
