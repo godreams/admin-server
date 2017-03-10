@@ -28,4 +28,11 @@ class User < ApplicationRecord
   def self.with_email(email)
     where('lower(email) = ?', email.downcase).first
   end
+
+  # volunteer? coach? fellow? national_finance_head?
+  %w(volunteer coach fellow national_finance_head).each do |role|
+    define_method("#{role}?") do
+      public_send(role).present?
+    end
+  end
 end
