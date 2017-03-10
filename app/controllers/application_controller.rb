@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :reset_session
+  before_action :authenticate_user!
 
-  # before_action :authenticate_request
-
-  helper_method :current_user, :current_user_role
+  helper_method :current_user_role
 
   rescue_from ApplicationException, with: :show_exception
 
@@ -13,15 +12,7 @@ class ApplicationController < ActionController::Base
     render json: exception.response, status: exception.status
   end
 
-  def current_user
-    @current_user ||= Users::AuthorizationService.new(request.headers).user
-  end
-
   private
-
-  def authenticate_request
-    raise Users::AuthenticationFailedException if current_user.blank?
-  end
 
   def current_volunteer
     current_user&.volunteer
