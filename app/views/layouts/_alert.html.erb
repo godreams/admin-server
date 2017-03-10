@@ -1,0 +1,11 @@
+<% if alert.present? || notice.present? %>
+  <% alert_class = alert.present? ? 'alert-warning' : 'alert-success' %>
+
+  <div class="alert <%= alert_class %> alert-dismissible fade show mt-3" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <%= alert || notice %>
+  </div>
+<% end %>
