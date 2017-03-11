@@ -4,9 +4,11 @@ after "development:coaches" do
   puts 'Seeding Volunteers'
 
   volunteer_users = (1..10).map do
+    name = Faker::Name.name
+
     User.create!(
-      name: Faker::Name.name ,
-      email: Faker::Internet.email,
+      name: name,
+      email: Faker::Internet.email(name),
       phone: "9876543#{100 + rand(100)}",
       password: 'password'
     )

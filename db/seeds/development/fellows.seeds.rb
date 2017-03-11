@@ -4,9 +4,11 @@ after "development:national_finance_heads" do
   puts 'Seeding Fellows'
 
   fellow_users = (1..4).map do
+    name = Faker::Name.name
+
     User.create!(
-      name: Faker::Name.name ,
-      email: Faker::Internet.email,
+      name: name,
+      email: Faker::Internet.email(name),
       phone: "9876543#{100 + rand(100)}",
       password: 'password'
     )
