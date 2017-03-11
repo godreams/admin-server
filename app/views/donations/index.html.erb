@@ -1,0 +1,29 @@
+<h1 class="mt-3">Donations</h1>
+
+<ul class="nav nav-pills mt-3" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#donations__pending" role='tab'>Pending</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#donations__partially-verified" role='tab'>Partial</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#donations__verified" role='tab'>Verified</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="donations__pending" role="tabpanel">
+    <ul class="list-group mt-3">
+      <%= render @donations %>
+    </ul>
+  </div>
+
+  <div class="tab-pane" id="donations__partially-verified" role="tabpanel">
+    Partial...
+  </div>
+
+  <div class="tab-pane" id="donations__verified" role="tabpanel">
+    Verified...
+  </div>
+</div>

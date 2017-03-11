@@ -32,6 +32,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_role
-    current_national_finance_head || current_fellow || current_coach || current_volunteer
+    current_user&.dominant_role
   end
 end

@@ -35,4 +35,8 @@ class User < ApplicationRecord
       public_send(role).present?
     end
   end
+
+  def dominant_role
+    national_finance_head || fellow || coach || volunteer
+  end
 end

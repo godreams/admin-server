@@ -9,28 +9,26 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq'
 
-  scope '/api' do
-    get 'authenticate', to: 'authentication#authenticate'
+  get 'authenticate', to: 'authentication#authenticate'
 
-    resources :donations do
-      member do
-        post 'approve'
-        get 'receipt'
-      end
+  resources :donations do
+    member do
+      post 'approve'
+      get 'receipt'
     end
-
-    resource :user, only: %w(show)
-
-    resources :users, only: [] do
-      collection do
-        get 'find'
-      end
-    end
-
-    resources :volunteers, only: %w(index create)
-    resources :coaches, only: %w(index create)
-    resources :fellows, only: %w(index create)
   end
+
+  resource :user, only: %w(show)
+
+  resources :users, only: [] do
+    collection do
+      get 'find'
+    end
+  end
+
+  resources :volunteers, only: %w(index create)
+  resources :coaches, only: %w(index create)
+  resources :fellows, only: %w(index create)
 
   root to: 'home#index'
 end

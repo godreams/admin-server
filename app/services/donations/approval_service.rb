@@ -5,8 +5,8 @@ module Donations
     end
 
     def approve(approver)
-      raise Donations::AlreadyApprovedException unless @donation.approvable?(approver)
-      raise Donations::ApproveNotAllowedException if approver.blank?
+      raise Donations::ApproveNotAllowedException if DonationPolicy.new(approver.user, @donation).approve?
+
       Approval.create!(donation: @donation, approver: approver)
 
       if approver.is_a?(NationalFinanceHead)

@@ -1,0 +1,13 @@
+<li class="list-group-item">
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-0">&#8377;<%= donation.amount %> from <%= donation.name %></h5>
+    <small title="<%= donation.created_at.iso8601 %>"><%= time_ago_in_words(donation.created_at) %> ago</small>
+  </div>
+
+  <% if policy(donation).approve? %>
+    <div class="mt-2">
+      <%= link_to 'Approve', approve_donation_path(donation), method: :post, class: 'btn btn-success btn-sm', data: { confirm: 'Are you sure you want to approve this donation?' } %>
+      <%= link_to 'View Details', donation_path(donation), class: 'btn btn-secondary btn-sm' %>
+    </div>
+  <% end %>
+</li>
