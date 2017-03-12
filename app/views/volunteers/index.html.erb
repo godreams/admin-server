@@ -1,5 +1,12 @@
 <h1 class="mt-3">Volunteers</h1>
 
-<ul class="list-group mt-3">
-  <%= render @volunteers %>
-</ul>
+<% if @volunteers.any? %>
+  <ul class="list-group mt-3">
+    <%= render @volunteers %>
+  </ul>
+<% else %>
+  <p class="mt-3">
+    There are no volunteers registered under you.
+    <%= link_to 'Add one?', new_volunteer_path %>
+  </p>
+<% end %>

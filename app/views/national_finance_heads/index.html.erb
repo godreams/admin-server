@@ -1,5 +1,11 @@
 <h1 class="mt-3">National Finance Heads</h1>
 
-<ul class="list-group mt-3">
-  <%= render @national_finance_heads %>
-</ul>
+<% if @national_finance_heads.any? %>
+  <ul class="list-group mt-3">
+    <%= render @national_finance_heads %>
+  </ul>
+<% else %>
+  <p class="mt-3">
+    I'm sorry, but it appears that there are no registered national finance heads. I'm as confused as you are. <i class="fa fa-frown-o"></i>
+  </p>
+<% end %>

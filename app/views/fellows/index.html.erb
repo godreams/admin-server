@@ -1,5 +1,12 @@
 <h1 class="mt-3">Fellows</h1>
 
-<ul class="list-group mt-3">
-  <%= render @fellows %>
-</ul>
+<% if @fellows.any? %>
+  <ul class="list-group mt-3">
+    <%= render @fellows %>
+  </ul>
+<% else %>
+  <p class="mt-3">
+    There are no fellows registered under you.
+    <%= link_to 'Add one?', new_fellow_path %>
+  </p>
+<% end %>
