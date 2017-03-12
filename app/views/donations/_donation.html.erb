@@ -4,10 +4,15 @@
     <small title="<%= donation.created_at.iso8601 %>"><%= time_ago_in_words(donation.created_at) %> ago</small>
   </div>
 
-  <% if policy(donation).approve? %>
-    <div class="mt-2">
+  <div class="mt-2">
+    <% if policy(donation).approve? %>
       <%= link_to 'Approve', approve_donation_path(donation), method: :post, class: 'btn btn-success btn-sm', data: { confirm: 'Are you sure you want to approve this donation?' } %>
+    <% else %>
+      <button class="btn btn-success btn-sm" disabled><%= donation.status_string %></button>
+    <% end %>
+
+    <% if policy(donation).show? %>
       <%= link_to 'View Details', donation_path(donation), class: 'btn btn-secondary btn-sm' %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </li>
