@@ -1,6 +1,7 @@
 class CoachesController < ApplicationController
   # GET /coaches
   def index
+    authorize Coach
     @coaches = current_user_role.coaches.includes(:user).order('created_at DESC')
   end
 

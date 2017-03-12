@@ -1,6 +1,7 @@
 class VolunteersController < ApplicationController
   # GET /volunteers
   def index
+    authorize Volunteer
     @volunteers = current_user_role.volunteers.includes(:user).order('created_at DESC')
   end
 

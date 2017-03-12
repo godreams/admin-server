@@ -1,6 +1,6 @@
 class VolunteerPolicy < ApplicationPolicy
   def index?
-    user.present? && (user.coach? || user.fellow? || user.national_finance_head?)
+    user&.coach? || user&.fellow? || user&.national_finance_head?
   end
 
   def show?

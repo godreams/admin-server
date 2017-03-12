@@ -1,6 +1,7 @@
 class FellowsController < ApplicationController
   # GET /fellows
   def index
+    authorize Fellow
     @fellows = current_user_role.fellows.includes(:user).order('created_at DESC')
   end
 
