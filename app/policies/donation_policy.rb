@@ -27,7 +27,7 @@ class DonationPolicy < ApplicationPolicy
     latest_approval = record.approvals.order(:created_at).last
 
     if latest_approval.present?
-      case latest_approval.approver.class
+      case latest_approval.approver
         when NationalFinanceHead then
           false
         when Fellow then
