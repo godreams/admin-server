@@ -3,12 +3,12 @@
 <ul class="nav nav-pills mt-3" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#donations__new" role='tab'>
-      New <span class="badge badge-pill badge-info hidden-xs-down"><%= @donations.pending.count %></span>
+      New <%= render 'donation_tab_count', scope: :pending, donations: @donations %>
     </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#donations__processing" role='tab'>
-      Processing <span class="badge badge-pill badge-info hidden-xs-down"><%= @donations.processing.count %></span>
+      Processing <%= render 'donation_tab_count', scope: :processing, donations: @donations %>
     </a>
   </li>
   <li class="nav-item">
