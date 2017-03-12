@@ -43,7 +43,7 @@
 
   <div class="tab-pane mt-3" id="donations__verified" role="tabpanel">
     <% if @donations.verified.blank? %>
-      <p>There are no verified donations in our records. Am I a newborn? <i class="fa fa-smile-o"></i></p>
+      <p>There are no verified donations in our records. I expect this will change soon. <i class="fa fa-smile-o"></i></p>
     <% else %>
       <ul class="list-group">
         <%= render @donations.verified %>
