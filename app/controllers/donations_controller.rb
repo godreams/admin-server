@@ -39,10 +39,10 @@ class DonationsController < ApplicationController
 
   # POST /donations/:id/approve
   def approve
-    approver = current_national_finance_head || current_fellow || current_coach
     donation = Donation.find(params[:id])
-    Donations::ApprovalService.new(donation).approve(approver)
-    @donation = donation.reload
+    authorize donation
+    Donations::ApprovalService.new(donation, current_user).approve
+    redirect_back fallback_location: donations_path
   end
 
   # GET /donations/:id/receipt
