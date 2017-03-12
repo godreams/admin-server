@@ -21,15 +21,27 @@
 <div class="tab-content">
   <div class="tab-pane active" id="donations__new" role="tabpanel">
     <ul class="list-group mt-3">
-      <%= render @donations.pending %>
+      <% if @donations.pending.blank? %>
+        <p>There are no new donations.</p>
+      <% else %>
+        <%= render @donations.pending %>
+      <% end %>
     </ul>
   </div>
 
   <div class="tab-pane mt-3" id="donations__processing" role="tabpanel">
-    <%= render @donations.processing %>
+    <% if @donations.processing.blank? %>
+      <p>There are no donations in the process of being verified, right now.</p>
+    <% else %>
+      <%= render @donations.processing %>
+    <% end %>
   </div>
 
   <div class="tab-pane mt-3" id="donations__verified" role="tabpanel">
-    <%= render @donations.verified %>
+    <% if @donations.verified.blank? %>
+      <p>There are no verified donations in our records. Am I a newborn? <i class="fa fa-smile-o"></i></p>
+    <% else %>
+      <%= render @donations.verified %>
+    <% end %>
   </div>
 </div>
