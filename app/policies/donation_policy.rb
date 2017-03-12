@@ -1,14 +1,14 @@
 class DonationPolicy < ApplicationPolicy
   def index?
-    true
+    user.present?
   end
 
   def show?
-    true
+    index?
   end
 
   def create?
-    user.volunteer?
+    user&.volunteer?
   end
 
   def update?
@@ -18,6 +18,8 @@ class DonationPolicy < ApplicationPolicy
   # Whether user can approve a donation depends on the level of the last approval - only higher-ups can approve
   # donations that have been approved by lower roles.
   def approve?
+    return false if user.blank?
+
     role = user.dominant_role
 
     return false unless record.in?(role.donations)

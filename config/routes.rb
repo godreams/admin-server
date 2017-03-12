@@ -26,9 +26,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :volunteers, only: %w(index create)
-  resources :coaches, only: %w(index create)
-  resources :fellows, only: %w(index create)
+  resources :volunteers, only: %w(index new create edit update)
+  resources :coaches, only: %w(index new create edit update)
+  resources :fellows, only: %w(index new create edit update)
+  resources :national_finance_heads, only: %w(index)
 
   root to: 'home#index'
 end

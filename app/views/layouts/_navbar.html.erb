@@ -4,38 +4,52 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <a class="navbar-brand" href="#">Guardians of Dreams</a>
+    <%= link_to 'Guardians of Dreams', root_path, class: 'navbar-brand' %>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Donations <span class="sr-only">(current)</span></a>
-        </li>
+        <% if policy(:donation).index? %>
+          <li class="nav-item active">
+            <%= link_to donations_path, class: 'nav-link' do %>
+              Donations <span class="sr-only">(current)</span>
+            <% end %>
+          </li>
+        <% end %>
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">Volunteers</a>
-        </li>
+        <% if policy(:volunteer).index? %>
+          <li class="nav-item">
+            <%= link_to 'Volunteers', volunteers_path, class: 'nav-link' %>
+          </li>
+        <% end %>
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">Coaches</a>
-        </li>
+        <% if policy(:coach).index? %>
+          <li class="nav-item">
+            <%= link_to 'Coaches', coaches_path, class: 'nav-link' %>
+          </li>
+        <% end %>
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">Fellows</a>
-        </li>
+        <% if policy(:fellow).index? %>
+          <li class="nav-item">
+            <%= link_to 'Fellows', fellows_path, class: 'nav-link' %>
+          </li>
+        <% end %>
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">National Finance Heads</a>
-        </li>
+        <% if policy(:national_finance_head).index? %>
+          <li class="nav-item">
+            <%= link_to 'NFHs', national_finance_heads_path, class: 'nav-link' %>
+          </li>
+        <% end %>
       </ul>
 
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-          </a>
-        </li>
-      </ul>
+      <% if current_user.present? %>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link' do %>
+              <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
     </div>
   </div>
 </nav>

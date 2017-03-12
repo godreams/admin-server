@@ -1,0 +1,2 @@
+class NationalFinanceHeadsController < ApplicationController
+end

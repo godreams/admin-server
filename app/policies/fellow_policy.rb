@@ -1,6 +1,6 @@
 class FellowPolicy < ApplicationPolicy
   def index?
-    user.national_finance_head?
+    user&.national_finance_head?
   end
 
   def show?
@@ -8,6 +8,6 @@ class FellowPolicy < ApplicationPolicy
   end
 
   def create?
-    user.national_finance_head?
+    index?
   end
 end
