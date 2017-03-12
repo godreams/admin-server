@@ -3,17 +3,17 @@
 <ul class="nav nav-pills mt-3" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#donations__new" role='tab'>
-      New <span class="badge badge-pill badge-default hidden-xs-down"><%= @donations.pending.count %></span>
+      New <span class="badge badge-pill badge-info hidden-xs-down"><%= @donations.pending.count %></span>
     </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#donations__processing" role='tab'>
-      Processing <span class="badge badge-pill badge-default hidden-xs-down"><%= @donations.processing.count %></span>
+      Processing <span class="badge badge-pill badge-info hidden-xs-down"><%= @donations.processing.count %></span>
     </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#donations__verified" role='tab'>
-      Verified <span class="badge badge-pill badge-default hidden-xs-down"><%= @donations.verified.count %></span>
+      Verified
     </a>
   </li>
 </ul>
