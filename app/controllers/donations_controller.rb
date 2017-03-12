@@ -1,6 +1,6 @@
 class DonationsController < ApplicationController
   def index
-    @donations = current_user_role.donations.order('created_at DESC')
+    @donations = current_user_role.donations.order('donations.created_at DESC')
   end
 
   def show

@@ -2,28 +2,34 @@
 
 <ul class="nav nav-pills mt-3" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#donations__pending" role='tab'>Pending</a>
+    <a class="nav-link active" data-toggle="tab" href="#donations__new" role='tab'>
+      New <span class="badge badge-pill badge-default hidden-xs-down"><%= @donations.pending.count %></span>
+    </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#donations__processing" role='tab'>Processing</a>
+    <a class="nav-link" data-toggle="tab" href="#donations__processing" role='tab'>
+      Processing <span class="badge badge-pill badge-default hidden-xs-down"><%= @donations.processing.count %></span>
+    </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#donations__verified" role='tab'>Verified</a>
+    <a class="nav-link" data-toggle="tab" href="#donations__verified" role='tab'>
+      Verified <span class="badge badge-pill badge-default hidden-xs-down"><%= @donations.verified.count %></span>
+    </a>
   </li>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="donations__pending" role="tabpanel">
+  <div class="tab-pane active" id="donations__new" role="tabpanel">
     <ul class="list-group mt-3">
-      <%= render @donations %>
+      <%= render @donations.pending %>
     </ul>
   </div>
 
-  <div class="tab-pane" id="donations__processing" role="tabpanel">
-    Processing...
+  <div class="tab-pane mt-3" id="donations__processing" role="tabpanel">
+    <%= render @donations.processing %>
   </div>
 
-  <div class="tab-pane" id="donations__verified" role="tabpanel">
-    Verified...
+  <div class="tab-pane mt-3" id="donations__verified" role="tabpanel">
+    <%= render @donations.verified %>
   </div>
 </div>
