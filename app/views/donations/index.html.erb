@@ -1,53 +1,69 @@
 <h1 class="mt-3">Donations</h1>
 
-<ul class="nav nav-pills mt-3" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#donations__new" role='tab'>
-      New <%= render 'donation_tab_count', scope: :pending, donations: @donations %>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#donations__processing" role='tab'>
-      Processing <%= render 'donation_tab_count', scope: :processing, donations: @donations %>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#donations__verified" role='tab'>
-      Verified
-    </a>
-  </li>
-</ul>
-
-<div class="tab-content">
-  <div class="tab-pane active" id="donations__new" role="tabpanel">
-    <ul class="list-group mt-3">
-      <% if @donations.pending.blank? %>
-        <p>There are no new donations.</p>
-      <% else %>
-        <ul class="list-group">
-          <%= render @donations.pending %>
-        </ul>
-      <% end %>
+<div class="row">
+  <div class="col-lg-4 push-lg-8">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <%= link_to new_donation_path, class: 'nav-link' do %>
+          <i class="fa fa-plus" aria-hidden="true"></i> Create New Donation
+        <% end %>
+      </li>
     </ul>
   </div>
 
-  <div class="tab-pane mt-3" id="donations__processing" role="tabpanel">
-    <% if @donations.processing.blank? %>
-      <p>There are no donations in the process of being verified, right now.</p>
-    <% else %>
-      <ul class="list-group">
-        <%= render @donations.processing %>
-      </ul>
-    <% end %>
-  </div>
+  <div class="col-lg-8 pull-lg-4">
+    <ul class="nav nav-pills mt-3" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#donations__new" role='tab'>
+          New <%= render 'donation_tab_count', scope: :pending, donations: @donations %>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#donations__processing" role='tab'>
+          Processing <%= render 'donation_tab_count', scope: :processing, donations: @donations %>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#donations__verified" role='tab'>
+          Verified
+        </a>
+      </li>
+    </ul>
 
-  <div class="tab-pane mt-3" id="donations__verified" role="tabpanel">
-    <% if @donations.verified.blank? %>
-      <p>There are no verified donations in our records. I expect this will change soon. <i class="fa fa-smile-o"></i></p>
-    <% else %>
-      <ul class="list-group">
-        <%= render @donations.verified %>
-      </ul>
-    <% end %>
+    <div class="tab-content">
+      <div class="tab-pane active" id="donations__new" role="tabpanel">
+        <ul class="list-group mt-3">
+          <% if @donations.pending.blank? %>
+            <p>There are no new donations.</p>
+          <% else %>
+            <ul class="list-group">
+              <%= render @donations.pending %>
+            </ul>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="tab-pane mt-3" id="donations__processing" role="tabpanel">
+        <% if @donations.processing.blank? %>
+          <p>There are no donations in the process of being verified, right now.</p>
+        <% else %>
+          <ul class="list-group">
+            <%= render @donations.processing %>
+          </ul>
+        <% end %>
+      </div>
+
+      <div class="tab-pane mt-3" id="donations__verified" role="tabpanel">
+        <% if @donations.verified.blank? %>
+          <p>There are no verified donations in our records. I expect this will change soon.
+            <i class="fa fa-smile-o"></i>
+          </p>
+        <% else %>
+          <ul class="list-group">
+            <%= render @donations.verified %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

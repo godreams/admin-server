@@ -1,0 +1,23 @@
+<h1 class="mt-3">New Donation</h1>
+
+<div class="mt-3">
+  <%= bootstrap_form_for @form, url: donations_path, layout: :horizontal do |f| %>
+    <%= f.text_field :name, placeholder: "Donor's Full Name" %>
+    <%= f.email_field :email, placeholder: 'donor@email.com' %>
+    <%= f.phone_field :phone, placeholder: "Donor's mobile phone number" %>
+    <%= f.number_field :amount, placeholder: 'Donation Amount' %>
+
+    <div class="row mb-2">
+      <div class="col-sm-10 offset-sm-2">
+        <%= f.check_box :tax_claim, label: 'Tax claim?' %>
+      </div>
+    </div>
+
+    <%= f.text_field :pan, placeholder: "Donor's PAN" %>
+    <%= f.text_field :address, placeholder: "Donor's Address" %>
+
+    <%= f.form_group do %>
+      <%= f.submit 'Create' %>
+    <% end %>
+  <% end %>
+</div>

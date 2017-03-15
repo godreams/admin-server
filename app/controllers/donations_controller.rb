@@ -7,17 +7,25 @@ class DonationsController < ApplicationController
     @donation = Donation.find(params[:id])
   end
 
+  # GET /donations/new
+  def new
+    donation = Donation.new
+    authorize donation
+    @form = Donations::CreateForm.new(Donation.new)
+  end
+
   # POST /donations
   def create
-    raise Donations::VolunteerRequiredException if current_volunteer.blank?
+    donation = Donation.new
+    authorize Donation.new
+    @form = Donations::CreateForm.new(donation)
 
-    form = Donations::CreateForm.new(Donation.new)
-
-    if form.validate(params)
-      form.save!(current_volunteer)
-      @donation = form.model
+    if @form.validate(params[:donations_create])
+      @form.save!(current_volunteer)
+      redirect_to donations_path
     else
-      raise ValidationFailureException.new(form)
+      flash.now[:alert] = 'Validation failed. Please check errors on form.'
+      render 'new'
     end
   end
 

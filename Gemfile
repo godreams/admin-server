@@ -84,6 +84,10 @@ gem 'devise'
 # Minimal authorization through OO design and pure Ruby classes. https://github.com/elabs/pundit
 gem 'pundit'
 
+# Rails form builder for Bootstrap. https://github.com/bootstrap-ruby/rails-bootstrap-forms
+# TODO: Switch to official release when Bootstrap 4 final is out and this gem has been updated.
+gem 'bootstrap_form', github: 'bootstrap-ruby/rails-bootstrap-forms', branch: 'bootstrap-v4'
+
 source 'https://rails-assets.org' do
   # A positioning engine to make overlays, tooltips and dropdowns better. Required by Bootstrap. https://github.com/HubSpot/tether
   gem 'rails-assets-tether', '>= 1.3.3'
