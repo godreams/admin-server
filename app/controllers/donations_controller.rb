@@ -24,7 +24,6 @@ class DonationsController < ApplicationController
       @form.save!(current_volunteer)
       redirect_to donations_path
     else
-      flash.now[:alert] = 'Validation failed. Please check errors on form.'
       render 'new'
     end
   end

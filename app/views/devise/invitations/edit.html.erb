@@ -1,0 +1,19 @@
+<h1 class="mt-3"><%= t 'devise.invitations.edit.header' %></h1>
+
+<%= bootstrap_form_for resource, as: resource_name, url: invitation_path(resource_name), layout: :horizontal, html: { method: :put, class: 'mt-3' } do |f| %>
+  <%= f.hidden_field :invitation_token %>
+
+  <%= f.text_field :name %>
+  <%= f.phone_field :phone, label: 'Phone Number' %>
+
+  <% if f.object.class.require_password_on_accepting %>
+    <%= f.password_field :password %>
+    <%= f.password_field :password_confirmation %>
+  <% end %>
+
+  <div class="form-group row">
+    <div class="col-sm-10 offset-sm-2">
+      <%= f.submit t('devise.invitations.edit.submit_button'), class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

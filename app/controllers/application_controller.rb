@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :reset_session
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :current_user_role
 
@@ -11,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   def show_exception(exception)
     render json: exception.response, status: exception.status
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name, :name, :phone])
   end
 
   private

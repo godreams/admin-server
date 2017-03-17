@@ -81,6 +81,9 @@ gem 'font-awesome-sass', '~> 4.7.0'
 # Flexible authentication solution for Rails with Warden. https://github.com/plataformatec/devise
 gem 'devise'
 
+# An invitation strategy for devise. https://github.com/scambra/devise_invitable
+gem 'devise_invitable'
+
 # Minimal authorization through OO design and pure Ruby classes. https://github.com/elabs/pundit
 gem 'pundit'
 

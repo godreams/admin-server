@@ -5,16 +5,23 @@ class FellowsController < ApplicationController
     @fellows = current_user_role.fellows.includes(:user).order('created_at DESC')
   end
 
+  # GET /fellows/new
+  def new
+    authorize Fellow
+    @form = Fellows::CreateForm.new(User.new)
+  end
+
   # POST /fellows
   def create
-    raise Users::AuthorizationFailedException if current_national_finance_head.blank?
+    authorize Fellow
+    @form = Fellows::CreateForm.new(User.new)
 
-    form = Fellows::CreateForm.new(User.new)
-
-    if form.validate(params)
-      @fellow = form.save(current_national_finance_head)
+    if @form.validate(params[:fellows_create])
+      @form.save(current_user)
+      flash[:notice] = 'A new fellow has been assigned!'
+      redirect_to fellows_path
     else
-      raise ValidationFailureException.new(form)
+      render 'new'
     end
   end
 end
