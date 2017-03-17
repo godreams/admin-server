@@ -1,0 +1,13 @@
+<h1 class="mt-3">New Coach</h1>
+
+<div class="mt-3">
+  <%= bootstrap_form_for @form, url: coaches_path, layout: :horizontal do |f| %>
+    <%= f.email_field :email, label: 'Email address', placeholder: 'coach@email.com', help: 'Email address of coach. An invite for signing up will be sent if this user does not exist.' %>
+
+    <div class="form-group row">
+      <div class="col-sm-10 offset-sm-2">
+        <%= f.submit 'Add / Invite', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -5,16 +5,24 @@ class CoachesController < ApplicationController
     @coaches = current_user_role.coaches.includes(:user).order('created_at DESC')
   end
 
+  # GET /coaches/new
+  def new
+    authorize Coach
+    @form = Coaches::CreateForm.new(User.new)
+  end
+
   # POST /coaches
   def create
-    raise Users::AuthorizationFailedException if current_fellow.blank?
+    authorize Coach
 
-    form = Coaches::CreateForm.new(User.new)
+    @form = Coaches::CreateForm.new(User.new)
 
-    if form.validate(params)
-      @coach = form.save(current_fellow)
+    if @form.validate(params[:coaches_create])
+      @form.save(current_user)
+      flash[:notice] = 'A new coach has been assigned!'
+      redirect_to coaches_path
     else
-      raise ValidationFailureException.new(form)
+      render 'new'
     end
   end
 end

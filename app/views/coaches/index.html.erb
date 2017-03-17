@@ -1,12 +1,26 @@
 <h1 class="mt-3">Coaches</h1>
 
-<% if @coaches.any? %>
-  <ul class="list-group mt-3">
-    <%= render @coaches %>
-  </ul>
-<% else %>
-  <p class="mt-3">
-    There are no coaches registered under you.
-    <%= link_to 'Add one?', new_coach_path %>
-  </p>
-<% end %>
+
+<div class="row">
+  <div class="col-lg-4 push-lg-8">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <%= link_to new_coach_path, class: 'nav-link' do %>
+          <i class="fa fa-plus" aria-hidden="true"></i> Create New Coach
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-lg-8 pull-lg-4">
+    <% if @coaches.any? %>
+      <ul class="list-group mt-3">
+        <%= render @coaches %>
+      </ul>
+    <% else %>
+      <p class="mt-3">
+        There are no coaches registered under you.
+        <%= link_to 'Add one?', new_coach_path %>
+      </p>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <li class="list-group-item">
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-0"><%= volunteer.user.name %></h5>
+    <h5 class="mb-0"><%= volunteer.user.name || "#{volunteer.user.email} (Invited)" %></h5>
     <small title="<%= volunteer.created_at.iso8601 %>"><%= time_ago_in_words(volunteer.created_at) %> ago</small>
   </div>
 </li>
