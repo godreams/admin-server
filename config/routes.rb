@@ -14,8 +14,6 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq'
 
-  get 'authenticate', to: 'authentication#authenticate'
-
   resources :donations do
     member do
       post 'approve'
