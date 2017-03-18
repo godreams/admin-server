@@ -1,10 +1,13 @@
 class DonationsController < ApplicationController
+  # GET /donations
   def index
     @donations = current_user_role.donations.order('donations.created_at DESC')
   end
 
+  # GET /donations/:id
   def show
     @donation = Donation.find(params[:id])
+    authorize @donation
   end
 
   # GET /donations/new
