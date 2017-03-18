@@ -19,7 +19,7 @@ class VolunteersController < ApplicationController
 
     if @form.validate(params[:volunteers_create])
       @form.save(current_user)
-      flash[:notice] = 'A new coach has been assigned!'
+      flash[:notice] = 'A new volunteer has been assigned!'
       redirect_to volunteers_path
     else
       render 'new'
