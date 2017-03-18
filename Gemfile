@@ -99,7 +99,6 @@ end
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails' # RSpec for Rails-3+ http://relishapp.com/rspec/rspec-rails
-  gem 'letter_opener' # Preview mail in the browser instead of sending.
 end
 
 group :development do
@@ -109,6 +108,8 @@ group :development do
   gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry-rails'
+  gem 'letter_opener' # Preview mail in the browser instead of sending.
+  gem 'letter_opener_web' # Gives letter_opener an interface for browsing sent emails.
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
