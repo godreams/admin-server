@@ -1,0 +1,25 @@
+<h1 class="mt-3">Please sign in</h1>
+
+<div class="mt-4">
+  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name), layout: :horizontal, control_col: 'col-xl-4 col-lg-5', label_col: 'col-lg-2') do |f| %>
+    <%= f.email_field :email, autofocus: true, label: 'Email address' %>
+    <%= f.password_field :password, autocomplete: 'off' %>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="form-group row">
+        <div class="col-xl-4 col-lg-5 offset-lg-2">
+          <%= f.check_box :remember_me %>
+        </div>
+      </div>
+    <% end -%>
+
+    <div class="form-group row">
+      <div class="col-xl-4 col-lg-5 offset-lg-2">
+        <%= f.submit 'Sign in', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<hr>
+<%= render 'devise/shared/links' %>

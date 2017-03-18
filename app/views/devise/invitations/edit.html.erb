@@ -1,6 +1,6 @@
 <h1 class="mt-3"><%= t 'devise.invitations.edit.header' %></h1>
 
-<%= bootstrap_form_for resource, as: resource_name, url: invitation_path(resource_name), layout: :horizontal, html: { method: :put, class: 'mt-3' } do |f| %>
+<%= bootstrap_form_for resource, as: resource_name, url: invitation_path(resource_name), layout: :horizontal, html: { method: :put, class: 'mt-4' }, control_col: 'col-xl-4 col-lg-5', label_col: 'col-lg-2' do |f| %>
   <%= f.hidden_field :invitation_token %>
 
   <%= f.text_field :name %>
@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="form-group row">
-    <div class="col-sm-10 offset-sm-2">
+    <div class="col-xl-4 col-lg-5 offset-lg-2">
       <%= f.submit t('devise.invitations.edit.submit_button'), class: 'btn btn-primary' %>
     </div>
   </div>
