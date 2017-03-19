@@ -103,4 +103,13 @@ ActiveRecord::Schema.define(version: 20170317135827) do
     t.index ["user_id"], name: "index_volunteers_on_user_id", using: :btree
   end
 
+  add_foreign_key "approvals", "donations"
+  add_foreign_key "coaches", "fellows"
+  add_foreign_key "coaches", "users"
+  add_foreign_key "donations", "volunteers"
+  add_foreign_key "fellows", "national_finance_heads"
+  add_foreign_key "fellows", "users"
+  add_foreign_key "national_finance_heads", "users"
+  add_foreign_key "volunteers", "coaches"
+  add_foreign_key "volunteers", "users"
 end
