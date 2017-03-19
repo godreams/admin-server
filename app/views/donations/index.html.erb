@@ -15,12 +15,12 @@
     <ul class="nav nav-pills mt-3" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#donations__new" role='tab'>
-          New <%= render 'donation_tab_count', scope: :pending, donations: @donations %>
+          New <%= render 'donation_tab_count', count: @donations.pending.count %>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#donations__processing" role='tab'>
-          Processing <%= render 'donation_tab_count', scope: :processing, donations: @donations %>
+          Processing <%= render 'donation_tab_count', count: @donations.processing.count %>
         </a>
       </li>
       <li class="nav-item">

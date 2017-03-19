@@ -1,5 +1,3 @@
-<% donation_count = scope == :pending ? donations.pending.count : donations.processing.count %>
-
-<% if donation_count > 0 %>
-  <span class="badge badge-pill badge-info hidden-xs-down"><%= donation_count %></span>
+<% if count > 0 %>
+  <span class="badge badge-pill badge-info hidden-xs-down"><%= count %></span>
 <% end %>
