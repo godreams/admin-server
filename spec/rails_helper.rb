@@ -7,6 +7,28 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+# Enable coverage checking by Coveralls and Simplecov.
+require 'simplecov'
+require 'coveralls'
+
+unless ENV['COVERAGE_AS_HTML'] == 'true'
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+end
+
+SimpleCov.start('rails') do
+  add_filter 'app/secrets'
+end
+
+# Use poltergeist as capybara driver.
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
+
+# Enable factory_girl.
+require 'factory_girl_rails'
+
+# Enable capybara-screenshot.
+require 'capybara-screenshot/rspec'
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -54,4 +76,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Include Factory Girl's helpers.
+  config.include FactoryGirl::Syntax::Methods
 end

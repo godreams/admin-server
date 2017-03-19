@@ -97,24 +97,51 @@ source 'https://rails-assets.org' do
 end
 
 group :development, :test do
-  gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'rspec-rails' # RSpec for Rails-3+ http://relishapp.com/rspec/rspec-rails
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platform: :mri
+
+  # RSpec for Rails-3+ http://relishapp.com/rspec/rspec-rails
+  gem 'rspec-rails'
+
+  # A library for setting up Ruby objects as test data https://github.com/thoughtbot/factory_girl_rails
+  gem 'factory_girl_rails', require: false
+
+  # An IRB alternative and runtime developer console. https://github.com/pry/pry-rails
+  gem 'pry-rails'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
+
   gem 'listen', '~> 3.0.5'
-  gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'pry-rails'
-  gem 'letter_opener' # Preview mail in the browser instead of sending.
-  gem 'letter_opener_web' # Gives letter_opener an interface for browsing sent emails.
+
+  # Preview mail in the browser instead of sending.
+  gem 'letter_opener'
+
+  # Gives letter_opener an interface for browsing sent emails.
+  gem 'letter_opener_web'
 end
 
 group :test do
-  gem 'simplecov', require: false # Code coverage for Ruby 1.9+. https://github.com/colszowka/simplecov
-  gem 'coveralls', require: false # Coveralls for Ruby. https://coveralls.io
+  # Code coverage for Ruby 1.9+. https://github.com/colszowka/simplecov
+  gem 'simplecov', require: false
+
+  # Coveralls for Ruby. https://coveralls.io
+  gem 'coveralls', require: false
+
+  # Acceptance test framework for web applications. http://teamcapybara.github.io/capybara
+  gem 'capybara', require: false
+
+  # A PhantomJS driver for Capybara. https://github.com/teampoltergeist/poltergeist
+  gem 'poltergeist', require: false
+
+  # Automatically save screen shots when a Capybara scenario fails. https://github.com/mattheworiordan/capybara-screenshot
+  gem 'capybara-screenshot', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
