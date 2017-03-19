@@ -113,6 +113,7 @@ group :development do
 end
 
 group :test do
+  gem 'simplecov', require: false # Code coverage for Ruby 1.9+. https://github.com/colszowka/simplecov
   gem 'coveralls', require: false # Coveralls for Ruby. https://coveralls.io
 end
 
