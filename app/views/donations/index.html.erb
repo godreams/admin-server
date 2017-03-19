@@ -9,6 +9,17 @@
         <% end %>
       </li>
     </ul>
+    <% unless current_user.dominant_role.is_a? Volunteer %>
+      <div id="filter-form" class="card">
+        <div class="card-header">Filter Donations</div>
+        <div class="card-block">
+          <%= bootstrap_form_tag url: donations_path, method: :get do |f| %>
+            <%= f.select :volunteer, Volunteer.all.collect {|p| [ p.name, p.id ] }, include_blank: true, selected: params[:volunteer] %>
+            <%= f.submit 'Filter'%>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 
   <div class="col-lg-8 pull-lg-4">

@@ -2,6 +2,7 @@ class DonationsController < ApplicationController
   # GET /donations
   def index
     @donations = current_user_role.donations.order('donations.created_at DESC')
+    filter_donations
   end
 
   # GET /donations/:id
@@ -60,5 +61,16 @@ class DonationsController < ApplicationController
     @donation = Donation.find(params[:id])
     raise Donations::ApprovalIncompleteException unless @donation.final_approval.present?
     @receipt_pdf = Base64.encode64(Donations::ReceiptPdf.new(@donation).build.render)
+  end
+
+  private
+
+  def filter_donations
+    return unless filter_applied?
+    @donations = @donations.where(volunteer: Volunteer.find(params[:volunteer]))
+  end
+
+  def filter_applied?
+    params[:volunteer].present?
   end
 end
