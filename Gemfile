@@ -112,5 +112,9 @@ group :development do
   gem 'letter_opener_web' # Gives letter_opener an interface for browsing sent emails.
 end
 
+group :test do
+  gem 'coveralls', require: false # Coveralls for Ruby. https://coveralls.io
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

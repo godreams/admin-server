@@ -35,3 +35,6 @@ public/index.html
 
 # Ignore locally installed modules.
 node_modules/
+
+# Ignore generated coverage information.
+/coverage
