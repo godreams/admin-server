@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/godreams/admin-server.svg?branch=master)](https://travis-ci.org/godreams/admin-server)
 [![Coverage Status](https://coveralls.io/repos/github/godreams/admin-server/badge.svg?branch=master)](https://coveralls.io/github/godreams/admin-server?branch=master)
+[![Code Climate](https://codeclimate.com/github/godreams/admin-server/badges/gpa.svg)](https://codeclimate.com/github/godreams/admin-server)
 
 This is a hybrid repository, containing both a Rails API and a React client application.
 
