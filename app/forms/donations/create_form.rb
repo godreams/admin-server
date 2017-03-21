@@ -11,8 +11,9 @@ module Donations
     validate :pan_required_if_tax_claimed
 
     def pan_required_if_tax_claimed
-      return unless tax_claim
+      return if tax_claim == '0'
       errors[:pan] << 'is required for tax claim' if pan.blank?
+      errors[:address] << 'is required for tax claim' if pan.blank?
     end
 
     def save!(volunteer)
