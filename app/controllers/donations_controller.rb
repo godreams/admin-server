@@ -26,6 +26,7 @@ class DonationsController < ApplicationController
 
     if @form.validate(params[:donations_create])
       @form.save!(current_volunteer)
+      flash[:notice] = 'Donation has been successfully recorded!'
       redirect_to donations_path
     else
       render 'new'
