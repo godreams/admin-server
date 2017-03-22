@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170322185606) do
+ActiveRecord::Schema.define(version: 20170322190155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20170322185606) do
     t.integer  "national_finance_head_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "city_id"
+    t.index ["city_id"], name: "index_fellows_on_city_id", using: :btree
     t.index ["national_finance_head_id"], name: "index_fellows_on_national_finance_head_id", using: :btree
     t.index ["user_id"], name: "index_fellows_on_user_id", using: :btree
   end
@@ -111,6 +113,7 @@ ActiveRecord::Schema.define(version: 20170322185606) do
   add_foreign_key "coaches", "fellows"
   add_foreign_key "coaches", "users"
   add_foreign_key "donations", "volunteers"
+  add_foreign_key "fellows", "cities"
   add_foreign_key "fellows", "national_finance_heads"
   add_foreign_key "fellows", "users"
   add_foreign_key "national_finance_heads", "users"
