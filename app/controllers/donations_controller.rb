@@ -1,8 +1,11 @@
 class DonationsController < ApplicationController
   # GET /donations
   def index
-    @donations = current_user_role.donations.order('donations.created_at DESC')
-    filter_donations
+    @filter_form = Donations::FilterForm.new(OpenStruct.new)
+    @filter_form.prepopulate!(params[:donations_filter])
+
+    donations = current_user_role.donations.order('donations.created_at DESC')
+    @donations = Donations::FilterService.new(donations).filter(params[:donations_filter])
   end
 
   # GET /donations/:id

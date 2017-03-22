@@ -13,8 +13,8 @@
       <div id="filter-form" class="card">
         <div class="card-header">Filter Donations</div>
         <div class="card-block">
-          <%= bootstrap_form_tag url: donations_path, method: :get do |f| %>
-            <%= f.select :volunteer, Volunteer.all.collect {|p| [ p.name, p.id ] }, include_blank: true, selected: params[:volunteer] %>
+          <%= bootstrap_form_for @filter_form, url: donations_path, method: :get do |f| %>
+            <%= f.select :volunteer, Volunteer.all.collect {|p| [ p.name, p.id ] }, include_blank: true %>
             <%= f.submit 'Filter'%>
           <% end %>
         </div>
