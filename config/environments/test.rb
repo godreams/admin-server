@@ -42,6 +42,9 @@ Rails.application.configure do
 
   # Set default URL base for mailers.
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Override Rails 5's default of :async, and force jobs to run inline.
+  config.active_job.queue_adapter = :inline
 end
 
 # Set application's default URL base using same config as mailer.
