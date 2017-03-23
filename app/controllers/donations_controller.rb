@@ -1,4 +1,6 @@
 class DonationsController < ApplicationController
+  before_action :set_paper_trail_whodunnit
+
   # GET /donations
   def index
     @filter_form = Donations::FilterForm.new(OpenStruct.new)
@@ -24,11 +26,11 @@ class DonationsController < ApplicationController
   # POST /donations
   def create
     donation = Donation.new
-    authorize Donation.new
+    authorize donation
     @form = Donations::CreateForm.new(donation)
 
-    if @form.validate(params[:donations_create])
-      @form.save!(current_volunteer)
+    if @form.validate(params[:donation])
+      @form.save(current_volunteer)
       flash[:notice] = 'Donation has been successfully recorded!'
       redirect_to donations_path
     else
@@ -36,12 +38,26 @@ class DonationsController < ApplicationController
     end
   end
 
+  # GET /donations/:id/edit
+  def edit
+    donation = Donation.find(params[:id])
+    authorize donation
+    @form = Donations::EditForm.new(donation)
+  end
+
   # PATCH /donations/:id
   def update
-    updater = current_national_finance_head || current_fellow || current_coach
     donation = Donation.find(params[:id])
-    Donations::UpdateService.new(donation).update(updater, params)
-    render json: { success: true, donation: donation.reload }
+    authorize donation
+    @form = Donations::EditForm.new(donation)
+
+    if @form.validate(params[:donation])
+      @form.save
+      flash[:notice] = 'Donation has been successfully updated!'
+      redirect_to donation_path(donation)
+    else
+      render 'edit'
+    end
   end
 
   # DELETE /donations/:id

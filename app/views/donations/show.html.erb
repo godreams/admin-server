@@ -1,10 +1,15 @@
 <h1 class="mt-3">&#8377;<%= @donation.amount %> from <%= @donation.name %></h1>
 
-
 <div class="row">
   <div class="col-lg-4 push-lg-8">
     <ul class="nav flex-column">
       <li class="nav-item">
+        <% if policy(@donation).edit? %>
+          <%= link_to edit_donation_path(@donation), class: 'nav-link' do %>
+            <i class="fa fa-pencil" aria-hidden="true"></i> Edit Donation
+          <% end %>
+        <% end %>
+
         <%= link_to new_donation_path, class: 'nav-link' do %>
           <i class="fa fa-plus" aria-hidden="true"></i> Create New Donation
         <% end %>
@@ -74,5 +79,33 @@
       </tr>
       </tbody>
     </table>
+
+    <% if @donation.versions.any? %>
+      <% version = @donation.versions.last %>
+      <% editor = User.find_by(id: version.whodunnit) %>
+
+      <h2 class='mt-3'>Last edited by</h2>
+
+      <table class="table mt-3">
+        <tbody>
+        <tr>
+          <th>Editor</th>
+          <td><%= editor.present? ? editor.name : content_tag(:em, 'Missing') %></td>
+        </tr>
+
+        <tr>
+          <th>Edited at</th>
+          <td><%= version.created_at %></td>
+        </tr>
+
+        <tr>
+          <th>Changes</th>
+          <td><pre><%= JSON.pretty_generate(version.changeset) %></pre></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <p>This donation has been edited <%= pluralize(@donation.versions.count, 'time') %>.</p>
+    <% end %>
   </div>
 </div>

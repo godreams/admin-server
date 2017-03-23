@@ -12,7 +12,7 @@ feature 'Create donation' do
   let(:pan) { "ABCDE#{1000 + rand(8000)}X" }
   let(:address) { Faker::Address.full_address }
 
-  scenario 'User signs in' do
+  scenario 'Volunteer creates donation' do
     sign_in_user volunteer.user
 
     expect(page).to have_content('Dashboard')
@@ -26,7 +26,7 @@ feature 'Create donation' do
     fill_in 'Phone', with: phone
     fill_in 'Amount', with: amount
     check 'Tax claim?'
-    fill_in 'Pan', with: pan
+    fill_in 'PAN', with: pan
     fill_in 'Address', with: address
     click_button 'Create'
 

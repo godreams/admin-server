@@ -12,7 +12,13 @@ class DonationPolicy < ApplicationPolicy
   end
 
   def update?
-    raise 'This should be allowed for Coaches, Fellows and NFP-s above the owning volunteer.'
+    role = user.dominant_role
+
+    if role.is_a?(Volunteer)
+      record.volunteer == role
+    else
+      role.donations.where(id: record.id).present?
+    end
   end
 
   # Whether user can approve a donation depends on the level of the last approval - only higher-ups can approve

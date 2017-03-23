@@ -91,6 +91,9 @@ gem 'pundit', '~> 1.1'
 # TODO: Switch to official release when Bootstrap 4 final is out and this gem has been updated.
 gem 'bootstrap_form', '~> 2.6', github: 'bootstrap-ruby/rails-bootstrap-forms', branch: 'bootstrap-v4'
 
+# Track changes to your models' data. Good for auditing or versioning. https://github.com/airblade/paper_trail
+gem 'paper_trail', '~> 6.0'
+
 source 'https://rails-assets.org' do
   # A positioning engine to make overlays, tooltips and dropdowns better. Required by Bootstrap. https://github.com/HubSpot/tether
   gem 'rails-assets-tether', '~> 1.3'

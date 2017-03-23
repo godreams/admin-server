@@ -1,5 +1,7 @@
 module Donations
   class CreateForm < Reform::Form
+    model :donation
+
     property :name, validates: { presence: true }
     property :email, validates: { presence: true, email: true }
     property :phone, validates: { presence: true, mobile_number: true }
@@ -16,7 +18,7 @@ module Donations
       errors[:address] << 'is required for tax claim' if pan.blank?
     end
 
-    def save!(volunteer)
+    def save(volunteer)
       sync
       model.volunteer = volunteer
       model.save!
