@@ -1,0 +1,39 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/config.ru'
+    - '**/*.rake'
+  Exclude:
+    - 'db/**/*'
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "log/**/*"
+
+# Rails specific
+
+Rails:
+  Enabled: true
+
+# General styling
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Style/CaseIndentation:
+  EnforcedStyle: end
+  IndentOneStep: true
+Lint/EndAlignment:
+  EnforcedStyleAlignWith: variable
+Style/VariableNumber:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - 'config/**/*'
+    - 'spec/factories/*'
+Style/FrozenStringLiteralComment:
+  Enabled: false # Do not require the addition of frozen string literal directive to all files.

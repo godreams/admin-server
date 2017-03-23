@@ -125,6 +125,9 @@ group :development do
 
   # Gives letter_opener an interface for browsing sent emails.
   gem 'letter_opener_web', '~> 1.3'
+
+  # A Ruby static code analyzer, based on the community Ruby style guide. http://rubocop.readthedocs.io
+  gem 'rubocop', '~> 0.47', require: false
 end
 
 group :test do
