@@ -2,11 +2,14 @@ dist: trusty
 sudo: false
 language: ruby
 rvm:
-  - 2.4.0
+- 2.4.0
 services:
-  - postgresql
+- postgresql
 addons:
-  postgresql: "9.6"
+  postgresql: '9.6'
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - cp config/database.travis.yml config/database.yml
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.travis.yml config/database.yml
+notifications:
+  slack:
+    secure: ot39GYqyfHSwVzUJt+0LwGWJTqkYNLBuiZ5pZCHR5BoEW/Ho3u5hwH0/6nMq0y5k3VWdWazc6iIZpGCoyNTnaeV24ex4mHa3GIBJSQYN1npoH76mj3r4ez7BPsYY9KSRTFVP0IX4scIoL7GUBw7/8jJEosgpVjl0Ezx9oEI7dl7YkDZevJVrYohSTcad4ab6IHE1yRzpDlN5L2m7kCwBfk8j8VGubmw5rl2ege/sIEJ9OVkP8+hfFGR0pjUglUv60ARD6bylSiHB20m+nRSEBVsyVcuLg/3SkhhtDHWdZamhn5U2ygqT4zYuyus/gTtm+rlIhZQzkoK4fagjnO6sxMyNn/ePKBpslUC5aRj8tV9W4RRmiBdyj5mDmoTDoZFLmQvTA188u2hGhVcpGvaqoKuvSjFZI5knpk0OMsXfKq0p+DKnBdFils4ukWTTW/W0cLWevFn2F/C2EQPWv5Wq4y5Oo5frtEwVVSYL7p+ITdB5fuZqzNCrP5TEIBGOe2YglT270c9HY34B9b5ON3MVbDu2KGhtGZW6WzPlEjYIBoCa5rD8dVuf6IRXZN4XXeAYH5XS5IratXA8Vqfv3+dtFBsGR+BJ79sJw5DPkn/rzdYIz7cyVBwkEG783fK/Eg07NPY5XhSMO9N15/PmL4X7FFh/cjMHlrRzEf3PmrC4gfk=
