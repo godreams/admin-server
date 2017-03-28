@@ -155,3 +155,8 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+group :production do
+  # Skylight agent for Ruby. https://www.skylight.io
+  gem 'skylight', '~> 1.1'
+end
