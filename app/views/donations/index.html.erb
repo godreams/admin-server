@@ -8,14 +8,25 @@
           <i class="fa fa-plus" aria-hidden="true"></i> Create New Donation
         <% end %>
       </li>
+
+      <% if @donations.any? %>
+        <li class="nav-item">
+          <span class="nav-link">
+          <%= link_to donations_path(format: 'csv'), 'data-toggle': 'tooltip', 'data-placement': 'right', title: pluralize(@donations.count, 'row') do %>
+            <i class="fa fa-download" aria-hidden="true"></i> Download as CSV
+          <% end %>
+          </span>
+        </li>
+      <% end %>
     </ul>
+
     <% unless current_user.dominant_role.is_a? Volunteer %>
-      <div id="filter-form" class="card">
+      <div id="filter-form" class="card mt-3">
         <div class="card-header">Filter Donations</div>
         <div class="card-block">
           <%= bootstrap_form_for @filter_form, url: donations_path, method: :get do |f| %>
-            <%= f.select :volunteer, Volunteer.all.collect {|p| [ p.name, p.id ] }, include_blank: true %>
-            <%= f.submit 'Filter'%>
+            <%= f.select :volunteer, Volunteer.all.collect { |p| [p.name, p.id] }, include_blank: true %>
+            <%= f.submit 'Filter' %>
           <% end %>
         </div>
       </div>

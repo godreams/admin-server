@@ -8,6 +8,11 @@ class DonationsController < ApplicationController
 
     donations = current_user_role.donations.order('donations.created_at DESC')
     @donations = Donations::FilterService.new(donations).filter(params[:donations_filter])
+
+    respond_to do |format|
+      format.html
+      format.csv { render csv: @donations, filename: "donations_#{Time.now.strftime('%Y%m%d_%H%M%S')}" }
+    end
   end
 
   # GET /donations/:id
