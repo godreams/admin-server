@@ -73,6 +73,7 @@ class DonationsController < ApplicationController
     donation = Donation.find(params[:id])
     authorize donation
     Donations::ApprovalService.new(donation, current_user).approve
+    flash[:notice] = 'Your approval of the donation has been recorded.'
     redirect_back fallback_location: donations_path
   end
 

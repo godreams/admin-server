@@ -148,6 +148,9 @@ group :test do
 
   # Automatically save screen shots when a Capybara scenario fails. https://github.com/mattheworiordan/capybara-screenshot
   gem 'capybara-screenshot', '~> 1.0', require: false
+
+  # Test ActionMailer and Mailer messages with Capybara. https://github.com/DockYard/capybara-email
+  gem 'capybara-email', '~> 2.5', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
