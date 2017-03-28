@@ -14,6 +14,6 @@ class DonationsMailer < ApplicationMailer
       content: Donations::ReceiptPdf.new(@donation).build.render
     }
 
-    mail(subject: 'GoDreams Donation Receipt', to: @donation.email)
+    mail(subject: 'GoDreams Donation Receipt', to: @donation.email, bcc: 'receipts@godreams.org')
   end
 end
