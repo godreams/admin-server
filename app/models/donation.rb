@@ -3,6 +3,7 @@ class Donation < ApplicationRecord
 
   belongs_to :volunteer
   has_many :approvals
+  has_one :city, through: :volunteer
 
   validates :name, presence: true
   validates :email, presence: true
