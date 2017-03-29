@@ -4,6 +4,9 @@ class Donation < ApplicationRecord
   belongs_to :volunteer
   has_many :approvals
   has_one :city, through: :volunteer
+  has_one :coach, through: :volunteer
+  has_one :fellow, through: :coach
+  has_one :national_finance_head, through: :fellow
 
   validates :name, presence: true
   validates :email, presence: true
