@@ -131,6 +131,9 @@ group :development do
 
   # A Ruby static code analyzer, based on the community Ruby style guide. http://rubocop.readthedocs.io
   gem 'rubocop', '~> 0.47', require: false
+
+  # Detects N+1 queries and unused eager loading
+  gem 'bullet'
 end
 
 group :test do

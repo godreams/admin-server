@@ -57,6 +57,11 @@ Rails.application.configure do
 
   # Set default URL base for mailers.
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # detect n + 1 queries using Bullet
+  Bullet.enable = true
+  Bullet.rails_logger = true
+  Bullet.alert = true
 end
 
 # Set application's default URL base using same config as mailer.
