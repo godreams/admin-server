@@ -39,4 +39,8 @@ class User < ApplicationRecord
   def dominant_role
     national_finance_head || fellow || coach || volunteer
   end
+
+  def fellow_or_above?
+    dominant_role.class.name.in? %w(NationalFinanceHead Fellow)
+  end
 end

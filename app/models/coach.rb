@@ -5,6 +5,5 @@ class Coach < ApplicationRecord
   has_many :volunteers, dependent: :restrict_with_error
   has_many :donations, through: :volunteers
   has_one :city, through: :fellow
-
   delegate :name, :email, :phone, to: :user
 end

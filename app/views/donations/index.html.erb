@@ -25,10 +25,14 @@
         <div class="card-header">Filter Donations</div>
         <div class="card-block">
           <%= bootstrap_form_for @filter_form, url: donations_path, method: :get do |f| %>
-            <%= f.select :volunteer, current_user_role.volunteers.includes(:user).collect { |v| [v.name, v.id] }, include_blank: 'Any' %>
             <% if current_user.dominant_role.is_a? NationalFinanceHead %>
               <%= f.select :city, City.all.collect { |c| [c.name, c.id] }, include_blank: 'Any' %>
+              <%= f.select :fellow, current_user_role.fellows.includes(:user).collect { |f| [f.name, f.id] }, include_blank: 'Any' %>
             <% end %>
+            <% if current_user.fellow_or_above? %>
+              <%= f.select :coach, current_user_role.coaches.includes(:user).collect { |c| [c.name, c.id] }, include_blank: 'Any' %>
+            <% end %>
+            <%= f.select :volunteer, current_user_role.volunteers.includes(:user).collect { |v| [v.name, v.id] }, include_blank: 'Any' %>
             <%= f.submit 'Filter' %>
           <% end %>
         </div>

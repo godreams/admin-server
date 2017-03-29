@@ -5,15 +5,20 @@ module Donations
     end
 
     def filter(filter_params)
-      if filter_params&.dig(:volunteer).present?
-        @donations = @donations.where(volunteer: Volunteer.find(filter_params[:volunteer]))
-      end
+      @filter_params = filter_params
 
-      if filter_params&.dig(:city).present?
-        @donations = @donations.merge(City.find(filter_params[:city]).donations)
+      %i(city fellow coach volunteer).each do |field|
+        filter_for(field) if @filter_params&.dig(field).present?
       end
 
       @donations
+    end
+
+    private
+
+    def filter_for(field)
+      clazz = field.to_s.capitalize.constantize
+      @donations = @donations.merge(clazz.find(@filter_params[field]).donations)
     end
   end
 end
