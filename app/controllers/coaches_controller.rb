@@ -3,6 +3,11 @@ class CoachesController < ApplicationController
   def index
     authorize Coach
     @coaches = current_user_role.coaches.includes(:user).order('created_at DESC')
+
+    respond_to do |format|
+      format.html
+      format.csv { render csv: @coaches, filename: "coaches_#{Time.now.strftime('%Y%m%d_%H%M%S')}" }
+    end
   end
 
   # GET /coaches/new

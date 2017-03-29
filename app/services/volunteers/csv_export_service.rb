@@ -6,7 +6,7 @@ module Volunteers
 
     def export
       CSV.generate do |csv|
-        csv << %w(id name email phone city coach_id coach_name fellow_id fellow_name nfh_id nfh_name sign_in_count last_sign_in_at created_at updated_at)
+        csv << %w(id name email phone city donations_count coach_id coach_name fellow_id fellow_name nfh_id nfh_name sign_in_count last_sign_in_at created_at updated_at)
 
         @volunteers.includes(:user, :city, coach: { fellow: :national_finance_head }).each_with_object(csv) do |volunteer, csv|
           csv << [
@@ -15,6 +15,7 @@ module Volunteers
             volunteer.email,
             volunteer.phone,
             volunteer.city&.name,
+            volunteer.donations.count,
             volunteer.coach.id,
             volunteer.coach.name,
             volunteer.fellow.id,

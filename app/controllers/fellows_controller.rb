@@ -3,6 +3,11 @@ class FellowsController < ApplicationController
   def index
     authorize Fellow
     @fellows = current_user_role.fellows.includes(:user).order('created_at DESC')
+
+    respond_to do |format|
+      format.html
+      format.csv { render csv: @fellows, filename: "fellows_#{Time.now.strftime('%Y%m%d_%H%M%S')}" }
+    end
   end
 
   # GET /fellows/new
