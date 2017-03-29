@@ -25,7 +25,7 @@
         <div class="card-header">Filter Donations</div>
         <div class="card-block">
           <%= bootstrap_form_for @filter_form, url: donations_path, method: :get do |f| %>
-            <%= f.select :volunteer, Volunteer.all.includes(:user).collect { |v| [v.name, v.id] }, include_blank: 'Any' %>
+            <%= f.select :volunteer, current_user_role.volunteers.includes(:user).collect { |v| [v.name, v.id] }, include_blank: 'Any' %>
             <%= f.select :city, City.all.collect { |c| [c.name, c.id] }, include_blank: 'Any' %>
             <%= f.submit 'Filter' %>
           <% end %>
