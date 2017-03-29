@@ -5,4 +5,6 @@ class NationalFinanceHead < ApplicationRecord
   has_many :volunteers, through: :coaches
   has_many :donations, through: :volunteers
   has_many :approvals, as: :approver
+
+  delegate :name, :email, :phone, to: :user
 end

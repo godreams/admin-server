@@ -3,6 +3,11 @@ class VolunteersController < ApplicationController
   def index
     authorize Volunteer
     @volunteers = current_user_role.volunteers.includes(:user).order('created_at DESC')
+
+    respond_to do |format|
+      format.html
+      format.csv { render csv: @volunteers, filename: "volunteers_#{Time.now.strftime('%Y%m%d_%H%M%S')}" }
+    end
   end
 
   # GET /volunteers/new
