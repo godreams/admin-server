@@ -141,8 +141,8 @@ group :test do
   # Code coverage for Ruby 1.9+. https://github.com/colszowka/simplecov
   gem 'simplecov', '~> 0.12', require: false
 
-  # Coveralls for Ruby. https://coveralls.io
-  gem 'coveralls', '~> 0.8', require: false
+  # Ruby uploader for Codecov. https://codecov.io
+  gem 'codecov', require: false
 
   # Acceptance test framework for web applications. http://teamcapybara.github.io/capybara
   gem 'capybara', '~> 2.13', require: false

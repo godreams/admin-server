@@ -2,21 +2,21 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
-# Enable coverage checking by Coveralls and Simplecov.
-require 'simplecov'
-require 'coveralls'
-
-unless ENV['COVERAGE_AS_HTML'] == 'true'
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+# Enable coverage checking by Simplecov.
+if ENV['CI'] == 'true' || ENV['COVERAGE'] == 'true'
+  require 'simplecov'
+  SimpleCov.start('rails')
 end
 
-SimpleCov.start('rails') do
-  add_filter 'app/secrets'
+# Allow coverage to be uploaded to Codecov.
+if ENV['CI'] == 'true' || ENV['CODECOV_TOKEN'].present?
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
 # Use poltergeist as capybara driver.
