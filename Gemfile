@@ -130,7 +130,8 @@ group :development do
   gem 'letter_opener_web', '~> 1.3'
 
   # A Ruby static code analyzer, based on the community Ruby style guide. http://rubocop.readthedocs.io
-  gem 'rubocop', '~> 0.47', require: false
+  # TODO: Switch to version above 0.48.0 when available. 0.48.0 is buggy.
+  gem 'rubocop', '= 0.47.1', require: false
 
   # Detects N+1 queries and unused eager loading
   gem 'bullet'
