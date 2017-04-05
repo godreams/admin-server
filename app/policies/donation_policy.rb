@@ -12,13 +12,7 @@ class DonationPolicy < ApplicationPolicy
   end
 
   def update?
-    role = user.dominant_role
-
-    if role.is_a?(Volunteer)
-      record.volunteer == role
-    else
-      role.donations.where(id: record.id).present?
-    end
+    record.in?(user.dominant_role.donations)
   end
 
   # Whether user can approve a donation depends on the level of the last approval - only higher-ups can approve
