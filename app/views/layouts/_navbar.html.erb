@@ -39,6 +39,11 @@
             <%= link_to 'NFHs', national_finance_heads_path, class: 'nav-link' %>
           </li>
         <% end %>
+        <% if policy(:city).index? %>
+          <li class="nav-item">
+            <%= link_to 'Cities', cities_path, class: 'nav-link' %>
+          </li>
+        <% end %>
       </ul>
 
       <% if current_user.present? %>

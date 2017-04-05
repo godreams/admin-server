@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :coaches, only: %w(index new create edit update)
   resources :fellows, only: %w(index new create edit update)
   resources :national_finance_heads, only: %w(index)
+  resources :cities, only: %w(index new create)
 
   root to: 'home#index'
 end

@@ -1,0 +1,26 @@
+<h1 class="mt-3">Cities</h1>
+
+<div class="row">
+  <div class="col-lg-4 push-lg-8">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <%= link_to new_city_path, class: 'nav-link' do %>
+          <i class="fa fa-plus" aria-hidden="true"></i> Create New City
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-lg-8 pull-lg-4">
+    <% if @cities.any? %>
+      <ul class="list-group mt-3">
+        <%= render @cities %>
+      </ul>
+    <% else %>
+      <p class="mt-3">
+        There are no cities to show.
+        <%= link_to 'Add one?', new_city_path %>
+      </p>
+    <% end %>
+  </div>
+</div>

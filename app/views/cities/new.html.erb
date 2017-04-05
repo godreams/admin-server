@@ -1,0 +1,13 @@
+<h1 class="mt-3">New City</h1>
+
+<div class="mt-3">
+  <%= bootstrap_form_for @form, url: cities_path, layout: :horizontal do |f| %>
+    <%= f.text_field :name %>
+
+    <div class="form-group row">
+      <div class="col-sm-10 offset-sm-2">
+        <%= f.submit 'Create', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>
