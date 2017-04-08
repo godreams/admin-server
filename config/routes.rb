@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web => '/sidekiq'
 
-  resources :donations do
+  resources :donations, except: %i(destroy) do
     member do
       post 'approve'
       get 'receipt'
