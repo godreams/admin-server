@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  after_action :verify_authorized
-  # TODO: enable this after updating current index routes
+  after_action :verify_authorized, except: :index, unless: :devise_controller?
+  # TODO: Enable this after updating current index routes.
   # after_action :verify_policy_scoped, only: :index
+
   protect_from_forgery with: :reset_session
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
