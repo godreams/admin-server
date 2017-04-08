@@ -1,0 +1,63 @@
+<h1 class="mt-3">Details of <%= @user.name %></h1>
+
+<div class="row">
+  <div class="col-lg-4 push-lg-8">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <% if policy(@user).edit? %>
+          <%= link_to edit_user_path(@user), class: 'nav-link' do %>
+            <i class="fa fa-pencil" aria-hidden="true"></i> Edit User
+          <% end %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-lg-8 pull-lg-4">
+    <table class="table mt-3">
+      <tbody>
+      <tr>
+        <th>Name</th>
+        <td><%= @user.name %></td>
+      </tr>
+
+      <% dominant_role = @user.dominant_role.class.to_s.underscore.split('_').map(&:capitalize).join(' ') %>
+
+      <tr>
+        <th>Dominant Role</th>
+        <td><%= dominant_role %></td>
+      </tr>
+
+      <% other_roles = (@user.roles_array.map { |role| role.underscore.split('_').map(&:capitalize).join(' ') } - [dominant_role]).join(', ') %>
+
+      <tr>
+        <th>Other Roles</th>
+        <td>
+          <%= other_roles.present? ? other_roles : '<em>None</em>'.html_safe %>
+        </td>
+      </tr>
+
+      <tr>
+        <th>Email address</th>
+        <td><%= mail_to @user.email %></td>
+      </tr>
+
+      <tr>
+        <th>Phone number</th>
+        <td><%= link_to "tel:#{@user.phone}" %></td>
+      </tr>
+
+      <tr>
+        <th>Last Sign In At</th>
+        <td><%= @user.last_sign_in_at %></td>
+      </tr>
+
+      <tr>
+        <th>Created At</th>
+        <td><%= @user.created_at %></td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

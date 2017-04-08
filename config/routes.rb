@@ -21,14 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :user, only: %w(show)
-
-  resources :users, only: [] do
-    collection do
-      get 'find'
-    end
-  end
-
+  resources :users, only: %i(show edit update)
   resources :volunteers, only: %w(index new create edit update)
   resources :coaches, only: %w(index new create edit update)
   resources :fellows, only: %w(index new create edit update)

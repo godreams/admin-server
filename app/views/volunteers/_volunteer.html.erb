@@ -3,4 +3,10 @@
     <h5 class="mb-0"><%= volunteer.user.name || "#{volunteer.user.email} (Invited)" %></h5>
     <small title="<%= volunteer.created_at.iso8601 %>"><%= time_ago_in_words(volunteer.created_at) %> ago</small>
   </div>
+
+  <div class="mt-2">
+    <% if policy(volunteer.user).show? %>
+      <%= link_to 'View Details', user_path(volunteer.user), class: 'btn btn-secondary btn-sm' %>
+    <% end %>
+  </div>
 </li>

@@ -3,4 +3,10 @@
     <h5 class="mb-0"><%= coach.user.name || "#{coach.user.email} (Invited)" %></h5>
     <small title="<%= coach.created_at.iso8601 %>"><%= time_ago_in_words(coach.created_at) %> ago</small>
   </div>
+
+  <div class="mt-2">
+    <% if policy(coach.user).show? %>
+      <%= link_to 'View Details', user_path(coach.user), class: 'btn btn-secondary btn-sm' %>
+    <% end %>
+  </div>
 </li>
